@@ -430,6 +430,8 @@ void ATD45DB161D::EndAndWait()
 	/* Wait for the chip to be ready */
   	while(!(ReadStatusRegister() & READY_BUSY))
   	{}
+
+	DF_CS_active;	/* Release SPI bus */
 }
 
 /**
@@ -464,7 +466,11 @@ int8_t ATD45DB161D::ComparePageToBuffer(uint16_t page, uint8_t bufferNum)
   	while(!((status = ReadStatusRegister()) & READY_BUSY))
   	{}
   		
-  	return ((status & COMPARE) == COMPARE);
+	/* If bit 6 of the status register is 0 then the data in the
+  	 * main memory page matches the data in the buffer. 
+ 	 * If it's 1 then the data in the main memory page doesn't match.
+ 	 */
+	 return ((status & COMPARE) ? 0 : 1);
 }
 
 /**
