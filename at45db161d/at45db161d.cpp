@@ -370,6 +370,7 @@ void ATD45DB161D::SectoreErase(uint8_t sector)
   	{}
 }
 
+#ifdef CHIP_ERASE_ENABLED
 /** 
  * Erase the entire chip memory. Sectors proteced or locked down will
  * not be erased.
@@ -392,6 +393,7 @@ void ATD45DB161D::ChipErase()
   	while(!(ReadStatusRegister() & READY_BUSY))
   	{}
 }
+#endif
 
 /**
  * This a combination of Buffer Write and Buffer to Page with
