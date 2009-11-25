@@ -17,6 +17,20 @@
  **/
 
 /**
+ * @defgroup Chip erase command prevention
+ * @comment Read Datasheet to learn why it's disabled
+ * @comment Change this block to define "CHIP_ERASE_ENABLED" to enable
+ * @note Will be removed once chip erase is re-implemented
+ * @{
+ **/
+#ifdef CHIP_ERASE_ENABLED
+#undef CHIP_ERASE_ENABLED
+#endif
+/**
+ * @} 
+ **/
+
+/**
  * @defgroup SPI SPI pinout and transfert function
  * @{
  **/
@@ -116,6 +130,7 @@ inline uint8_t spi_transfer(uint8_t data)
  *     - Protection and Security Commands
  *     - Auto Page Rewrite through Buffer 1
  *     - Auto Page Rewrite through Buffer 2
+ *	   - Implement chip erase as multiple sector erases
  **/
 class ATD45DB161D
 {
@@ -232,12 +247,15 @@ class ATD45DB161D
 		 **/
 		void SectoreErase(uint8_t sector);
 
+#ifdef CHIP_ERASE_ENABLED
 		/** 
 		 * Erase the entire chip memory. Sectors proteced or locked down will
 		 * not be erased.
 		 * @warning UNTESTED
+		 * @warning MAY DAMAGE CHIP, READ DATASHEET FOR DETAILS
 		 **/
 		void ChipErase();
+#endif
 
 		/**
 		 * This a combination of Buffer Write and Buffer to Page with
