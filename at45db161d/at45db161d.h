@@ -5,13 +5,9 @@
 #ifndef AT45DB161D_H
 #define AT45DB161D_H
 
-extern "C" {
-
 #include <avr/pgmspace.h>
 #include <inttypes.h>
-#include "WConstants.h"
-
-};
+#include "WProgram.h"
 
 #include "at45db161d_commands.h"
 
@@ -95,7 +91,7 @@ inline uint8_t spi_transfer(uint8_t data)
  **/
 #define PROTECT 0x02
 /**
- * Bit 0 indicates wether the page size of the main memory array is
+ * Bit 0 indicates whether the page size of the main memory array is
  * configured for "power of 2" binary page size (512 bytes) (bit=1) or 
  * standard DataFlash page size (528 bytes) (bit=0).
  **/
