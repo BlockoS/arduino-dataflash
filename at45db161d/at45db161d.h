@@ -125,12 +125,6 @@ inline uint8_t spi_transfer(uint8_t data)
 
 /**
  * @brief at45db161d module
- * @todo
- *     - TESTS!
- *     - Protection and Security Commands
- *     - Auto Page Rewrite through Buffer 1
- *     - Auto Page Rewrite through Buffer 2
- *	   - Implement chip erase as multiple sector erases
  **/
 class ATD45DB161D
 {
