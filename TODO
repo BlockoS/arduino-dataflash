@@ -1,7 +1,8 @@
 /*
  * @todo 
- *	- Testing
+ *	- PLANNING!
  *	- Clean up and publish continuous write code
  *	- Implement chip erase as multiple sector erases
  *	- Expand compatibility beyond 161d chip
+ *	- Testing
  **/
