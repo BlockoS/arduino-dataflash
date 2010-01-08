@@ -126,6 +126,12 @@ void ATD45DB161D::ContinuousArrayRead(uint16_t page, uint16_t offset, uint8_t lo
 	spi_transfer((uint8_t)(page >> 6));
 	spi_transfer((uint8_t)((page << 2) | (offset >> 8)));
 	spi_transfer((uint8_t)(offset & 0xff));
+
+	/* High frequency continuous read has a additional don't care byte */
+	if(!low)
+	{
+		spi_transfer(0x00);
+	}
 }
 
 
