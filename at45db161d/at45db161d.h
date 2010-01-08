@@ -5,19 +5,29 @@
 #ifndef AT45DB161D_H
 #define AT45DB161D_H
 
-extern "C" {
-
 #include <avr/pgmspace.h>
 #include <inttypes.h>
-#include "WConstants.h"
-
-};
+#include "WProgram.h"
 
 #include "at45db161d_commands.h"
 
 /**
  * @defgroup AT45DB161D AT45DB161D module
  * @{
+ **/
+
+/**
+ * @defgroup Chip erase command prevention
+ * @comment Read Datasheet to learn why it's disabled
+ * @comment Change this block to define "CHIP_ERASE_ENABLED" to enable
+ * @note Will be removed once chip erase is re-implemented
+ * @{
+ **/
+#ifdef CHIP_ERASE_ENABLED
+#undef CHIP_ERASE_ENABLED
+#endif
+/**
+ * @} 
  **/
 
 /**
@@ -95,7 +105,7 @@ inline uint8_t spi_transfer(uint8_t data)
  **/
 #define PROTECT 0x02
 /**
- * Bit 0 indicates wether the page size of the main memory array is
+ * Bit 0 indicates whether the page size of the main memory array is
  * configured for "power of 2" binary page size (512 bytes) (bit=1) or 
  * standard DataFlash page size (528 bytes) (bit=0).
  **/
@@ -115,11 +125,6 @@ inline uint8_t spi_transfer(uint8_t data)
 
 /**
  * @brief at45db161d module
- * @todo
- *     - TESTS!
- *     - Protection and Security Commands
- *     - Auto Page Rewrite through Buffer 1
- *     - Auto Page Rewrite through Buffer 2
  **/
 class ATD45DB161D
 {
@@ -236,12 +241,15 @@ class ATD45DB161D
 		 **/
 		void SectoreErase(uint8_t sector);
 
+#ifdef CHIP_ERASE_ENABLED
 		/** 
 		 * Erase the entire chip memory. Sectors proteced or locked down will
 		 * not be erased.
 		 * @warning UNTESTED
+		 * @warning MAY DAMAGE CHIP, READ DATASHEET FOR DETAILS
 		 **/
 		void ChipErase();
+#endif
 
 		/**
 		 * This a combination of Buffer Write and Buffer to Page with
