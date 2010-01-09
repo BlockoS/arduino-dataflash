@@ -68,11 +68,6 @@ inline uint8_t spi_transfer(uint8_t data)
 	return SPDR;
 }
 
-/** De-assert CS **/
-#define DF_CS_inactive digitalWrite(SLAVESELECT,HIGH)
-/** Assert CS **/
-#define DF_CS_active digitalWrite(SLAVESELECT,LOW)
-
 #endif /* SPI */
 /**
  * @}
@@ -147,9 +142,27 @@ class ATD45DB161D
 		/** DTOR **/
 		~ATD45DB161D();
 
-		/** Setup SPI and pinout **/
-		void Init();
+		/** 
+ 		 * Setup SPI and pinout
+ 		 * @param csPin Chip select (Slave select) pin (CS)
+ 		 * @param resetPin Reset pin (RESET)
+ 		 * @param wpPin Write protect pin (WP)
+ 		 * **/
+		void Init(uint8_t csPin=SLAVESELECT, uint8_t resetPin=RESET, uint8_t wpPin=WP);
 
+		/**
+		 * Activate device.
+		 **/
+		void Enable();
+
+		/**
+		 * Deactivate device.
+		 **/
+		inline void Disable()
+		{
+			digitalWrite(m_chipSelectPin, HIGH);
+		}
+		
 		/** 
 		 * Read status register 
 		 * @return The content of the status register
@@ -294,8 +307,41 @@ class ATD45DB161D
 		 **/
 		void ResumeFromDeepPowerDown();
 
+		/**
+		 * Reset device via the reset pin.
+		 **/
+		void HardReset();
+		
+		/**
+		 * Enable write protection.
+		 **/
+		inline void EnableWriteProtection()
+		{
+			digitalWrite(m_writeProtectPin, LOW);
+		}
+
+		/**
+		 * Disable write protection.
+		 **/
+		inline void DisableWriteProtection()
+		{
+			digitalWrite(m_writeProtectPin, HIGH);
+		}
+		
+		/** Get chip Select (CS) pin **/
+		inline uint8_t ChipSelectPin  () { return m_chipSelectPin;   }
+		/** Get reset (RESET) pin **/
+		inline uint8_t ResetPin       () { return m_resetPin;        }
+		/** Get write protect (WP) pin **/
+		inline uint8_t WriteProtectPin() { return m_writeProtectPin; }
+		
 	private:
-		/* Nothing atm but who knows... */
+		/* Chip select pin (CS) */
+		uint8_t m_chipSelectPin;
+		/* Reset pin (RESET) */
+		uint8_t m_resetPin;
+		/* Write protect pin (WP) */
+		uint8_t m_writeProtectPin;
 };
 
 /**

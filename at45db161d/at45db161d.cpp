@@ -1,26 +1,56 @@
 #include "at45db161d.h"
 
+ 
+/* De-assert CS */
+#define DF_CS_inactive digitalWrite(m_chipSelectPin,HIGH)
+/* Assert CS */
+#define DF_CS_active digitalWrite(m_chipSelectPin,LOW)
+
 /** CTOR **/
-ATD45DB161D::ATD45DB161D()
+ATD45DB161D::ATD45DB161D() :
+	m_chipSelectPin   (SLAVESELECT),
+	m_resetPin        (RESET),
+	m_writeProtectPin (WP)	
 {}
 /** DTOR **/
 ATD45DB161D::~ATD45DB161D()
 {}
 
-/** Setup SPI and pinout **/
-void ATD45DB161D::Init()
+/** 
+ * Setup SPI and pinout
+ * @param csPin Chip select (Slave select) pin (CS)
+ * @param resetPin Reset pin (RESET)
+ * @param wpPin Write protect pin (WP)
+ * **/
+void ATD45DB161D::Init(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
 {
-	uint8_t clr;
+	m_chipSelectPin   = csPin;
+	m_resetPin        = resetPin;
+	m_writeProtectPin = wpPin;
 	
 	/* Initialize pinout */
 	pinMode(DATAOUT, OUTPUT);
 	pinMode(DATAIN, INPUT);
 	pinMode(SPICLOCK, OUTPUT);
-	pinMode(SLAVESELECT, OUTPUT);
-	pinMode(DATAIN, INPUT);
-  
-  	/* Disable device */
+
+	pinMode(m_chipSelectPin, OUTPUT);
+	pinMode(m_resetPin, OUTPUT);
+	pinMode(m_writeProtectPin, OUTPUT);
+	
+	digitalWrite(m_resetPin, HIGH);
+	digitalWrite(m_writeProtectPin, LOW);
+}
+
+/**
+ * Activate device.
+ **/
+void ATD45DB161D::Enable()
+{
+	uint8_t clr;
+
+	/* Disable device */
   	DF_CS_inactive;
+	digitalWrite(SLAVESELECT, HIGH);
   
 	/* Setup SPI */
 	SPCR = (1 << SPE) | (1 << MSTR) | (1 << CPOL) | (1 << CPHA);
@@ -523,5 +553,26 @@ void ATD45DB161D::ResumeFromDeepPowerDown()
 	 * (just to be sure). */
 	delay(100);
 }
- 
+
+void ATD45DB161D::HardReset()
+{
+	digitalWrite(m_resetPin, LOW);
+
+	/* The reset pin should stay low for at least 10ms (table 18.4)*/
+	delayMicroseconds(10);
+	
+	/* According to the Dataflash spec (21.6 Reset Timing),
+	 * the CS pin should be in high state before RESET
+	 * is deasserted (ie HIGH) */
+	digitalWrite(m_chipSelectPin, HIGH);
+	/* Just to be sure that the high state is reached */
+	delayMicroseconds(1);
+		
+	digitalWrite(m_resetPin, HIGH);
+	
+	/* Reset recovery time = 1ms */
+	delayMicroseconds(1);
+	digitalWrite(m_chipSelectPin, LOW);
+}
+
 /** **/
