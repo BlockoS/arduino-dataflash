@@ -56,7 +56,6 @@
  **/
 
 /**
- * @fn inline uint8_t spi_transfer(uint8_t data)
  * @brief Transfer a byte via spi
  * @param data Data to transfer via SPI
  * @return The content of the SPI data register (SPDR)
@@ -64,8 +63,34 @@
 inline uint8_t spi_transfer(uint8_t data)
 {
 	SPDR = data;
+	/* SPIF is set when the transmission is complete
+	 * (ie when a byte was received) */
 	while(!(SPSR & (1 << SPIF))) ;
 	return SPDR;
+}
+
+/**
+ * 
+ **/
+inline void spi_init()
+{
+	uint8_t clr;
+
+	/* Initialize pinout */
+	pinMode(DATAOUT,  OUTPUT);
+	pinMode(DATAIN,   INPUT);
+	pinMode(SPICLOCK, OUTPUT);
+
+	/* As the atmega SPI, SS must be in output mode (or high) */ 
+	pinMode(SLAVESELECT, OUTPUT);
+	digitalWrite(SLAVESELECT, HIGH); // Unnecessary
+	
+	/* Setup SPI (Enable SPI, Master, MODE 3) */
+	SPCR = (1 << SPE) | (1 << MSTR) | (1 << CPOL) | (1 << CPHA);
+
+	/* Clear pending SPI interrupts */
+	clr = SPSR;
+	clr = SPDR;
 }
 
 #endif /* SPI */
@@ -153,8 +178,11 @@ class ATD45DB161D
 		/**
 		 * Activate device.
 		 **/
-		void Enable();
-
+		inline void Enable()
+		{
+			digitalWrite(m_chipSelectPin, LOW);
+		}
+	
 		/**
 		 * Deactivate device.
 		 **/

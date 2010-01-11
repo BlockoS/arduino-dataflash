@@ -11,11 +11,14 @@ void setup()
   uint8_t        status;
   ATD45DB161D::ID id;
   
+  /* Initialize SPI */
+  spi_init();
+  
   /* Let's wait 1 second, allowing use to press the serial monitor button :p */
   delay(1000);
   
   /* Initialize dataflash */
-  dataflash.Init();
+  dataflash.Init(5,6,7);
     
   delay(10);
   
@@ -57,7 +60,7 @@ void setup()
 void loop()
 {
   unsigned int i,j;
-  char message[] = "write test ";
+  char message[] = "@ write test ";
   char overflow[] = "\nOVERFLOW!\n";
   char buffer[64];
   uint8_t data;
@@ -98,7 +101,7 @@ void loop()
 
   /* Transfer buffer 1 to 'page' page (with builtin erase) */
   dataflash.BufferToPage(1, page, 1);	
-  
+
   ++page;
   /* When we wrote the number of pages we wanted (NUM_PAGES), we display their contents by
    * using 2 methods alternatively ;

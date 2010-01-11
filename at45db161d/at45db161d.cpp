@@ -28,36 +28,15 @@ void ATD45DB161D::Init(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
 	m_resetPin        = resetPin;
 	m_writeProtectPin = wpPin;
 	
-	/* Initialize pinout */
-	pinMode(DATAOUT, OUTPUT);
-	pinMode(DATAIN, INPUT);
-	pinMode(SPICLOCK, OUTPUT);
-
-	pinMode(m_chipSelectPin, OUTPUT);
-	pinMode(m_resetPin, OUTPUT);
+	pinMode(m_chipSelectPin,   OUTPUT);
+	pinMode(m_resetPin,        OUTPUT);
 	pinMode(m_writeProtectPin, OUTPUT);
 	
-	digitalWrite(m_resetPin, HIGH);
+	digitalWrite(m_resetPin,        HIGH);
 	digitalWrite(m_writeProtectPin, LOW);
-}
-
-/**
- * Activate device.
- **/
-void ATD45DB161D::Enable()
-{
-	uint8_t clr;
 
 	/* Disable device */
   	DF_CS_inactive;
-	digitalWrite(SLAVESELECT, HIGH);
-  
-	/* Setup SPI */
-	SPCR = (1 << SPE) | (1 << MSTR) | (1 << CPOL) | (1 << CPHA);
-
-	/* Cleanup registers */
-	clr = SPSR;
-	clr = SPDR;
 }
 
 /** 
