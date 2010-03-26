@@ -4,5 +4,12 @@
  *	- Clean up and publish continuous write code
  *	- Implement chip erase as multiple sector erases
  *	- Expand compatibility beyond 161d chip
+ *		-- Retrieve device density from status register on init
+ *		   ref: "Using Atmel’s DataFlash" tab 4 & 5 p8
+ *		        "DataFlash Binary Page Size"
+ *		-- We'd be able to deduce the default page size and bits :
+ *		   density   : 512k,  1M,  2M,  4M,  8M, 16M, 32M,  64M
+ *		   page size :  264, 264, 264, 264, 264, 528, 528, 1056
+ *		   page bits :    9,   9,   9,   9,   9,  10,  10,   11
  *	- Testing
  **/
