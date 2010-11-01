@@ -1,8 +1,2 @@
-/*
- * @todo 
- *	- PLANNING!
- *	- Clean up and publish continuous write code
- *	- Implement chip erase as multiple sector erases
- *	- Expand compatibility beyond 161d chip
- *	- Testing
- **/
+1. Use SPI library.
+2. Add support the rest of the AT45 family.
