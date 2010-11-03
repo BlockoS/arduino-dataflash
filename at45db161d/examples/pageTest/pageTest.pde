@@ -1,4 +1,5 @@
 #include <SPI.h>
+#include "at45db161d_commands.h"
 #include "at45db161d.h"
 
 #define NUM_PAGES 8

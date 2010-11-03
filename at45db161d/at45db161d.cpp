@@ -11,7 +11,8 @@ ATD45DB161D::ATD45DB161D() :
 	m_chipSelectPin   (SLAVESELECT),
 	m_resetPin        (RESET),
 	m_writeProtectPin (WP),
-	m_controlRegister (0)
+	m_SPCR (0),
+	m_SPSR (0)
 {}
 /** DTOR **/
 ATD45DB161D::~ATD45DB161D()
@@ -194,7 +195,7 @@ void ATD45DB161D::BufferRead(uint8_t bufferNum, uint16_t offset, uint8_t low)
 	}
 	else
 	{
-		spi_transfer(low ? AT45DB161D_BUFFER_2_READ_LOW_FREQ :
+		SPI.transfer(low ? AT45DB161D_BUFFER_2_READ_LOW_FREQ :
 		                   AT45DB161D_BUFFER_2_READ);
 
 	}

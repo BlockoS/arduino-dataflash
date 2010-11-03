@@ -6,7 +6,7 @@
 #define AT45DB161D_H
 
 #include <inttypes.h>
-#include "SPI.h"
+#include <SPI.h>
 
 #include "at45db161d_commands.h"
 
