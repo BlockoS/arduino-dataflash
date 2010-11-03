@@ -10,20 +10,23 @@
 ATD45DB161D::ATD45DB161D() :
 	m_chipSelectPin   (SLAVESELECT),
 	m_resetPin        (RESET),
-	m_writeProtectPin (WP)	
+	m_writeProtectPin (WP),
+	m_controlRegister (0)
 {}
 /** DTOR **/
 ATD45DB161D::~ATD45DB161D()
 {}
-
+	
 /** 
- * Setup SPI and pinout
+ * Setup pinout and set SPI configuration
  * @param csPin Chip select (Slave select) pin (CS)
  * @param resetPin Reset pin (RESET)
  * @param wpPin Write protect pin (WP)
  * **/
-void ATD45DB161D::Init(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
+void ATD45DB161D::begin(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
 {
+	uint8_t clr;
+	
 	m_chipSelectPin   = csPin;
 	m_resetPin        = resetPin;
 	m_writeProtectPin = wpPin;
@@ -35,8 +38,36 @@ void ATD45DB161D::Init(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
 	digitalWrite(m_resetPin,        HIGH);
 	digitalWrite(m_writeProtectPin, LOW);
 
+	/* Backup registers */
+	m_SPCR = SPCR;
+	
+	/* Clear pending SPI interrupts */
+	clr = SPSR;
+	clr = SPDR;
+	
+	/* Keep on backuping */
+	m_SPSR = (SPSR & SPI_2XCLOCK_MASK);
+	
+	/* Setup SPI */
+	SPI.setDataMode(SPI_MODE3);
+	SPI.setBitOrder(MSBFIRST);
+	SPI.setClockDivider(SPI_CLOCK_DIV2);
+	
+	/* Enable device */
+  	DF_CS_active;
+}
+
+/**
+ * Disable device and restore SPI configuration
+ **/
+void ATD45DB161D::end()
+{
 	/* Disable device */
   	DF_CS_inactive;
+
+	/* Restore SPI registers */
+	SPCR = m_SPCR;
+	SPSR = m_SPSR;
 }
 
 /** 
@@ -51,9 +82,9 @@ uint8_t ATD45DB161D::ReadStatusRegister()
 	DF_CS_active;      /* to reset Dataflash command decoder     */
   
     /* Send status read command */
-	spi_transfer(AT45DB161D_STATUS_REGISTER_READ);
+	SPI.transfer(AT45DB161D_STATUS_REGISTER_READ);
 	/* Get result with a dummy write */
-	status = spi_transfer(0x00);
+	status = SPI.transfer(0x00);
 
 	return status;
 }
@@ -61,7 +92,7 @@ uint8_t ATD45DB161D::ReadStatusRegister()
 /** 
  * Read Manufacturer and Device ID 
  * @note if id.extendedInfoLength is not equal to zero,
- *       successive calls to spi_transfer(0xff) will return
+ *       successive calls to SPI.transfer(0xff) will return
  *       the extended device information string bytes.
  * @param id Pointer to the ID structure to initialize
  **/
@@ -72,16 +103,16 @@ void ATD45DB161D::ReadManufacturerAndDeviceID(struct ATD45DB161D::ID *id)
 	DF_CS_active;      /* to reset Dataflash command decoder     */
   
     /* Send status read command */
-	spi_transfer(AT45DB161D_READ_MANUFACTURER_AND_DEVICE_ID);
+	SPI.transfer(AT45DB161D_READ_MANUFACTURER_AND_DEVICE_ID);
 
 	/* Manufacturer ID */
-	id->manufacturer = spi_transfer(0xff);
+	id->manufacturer = SPI.transfer(0xff);
 	/* Device ID (part 1) */
-	id->device[0] = spi_transfer(0xff);
+	id->device[0] = SPI.transfer(0xff);
 	/* Device ID (part 2) */
-	id->device[1] = spi_transfer(0xff);
+	id->device[1] = SPI.transfer(0xff);
 	/* Extended Device Information String Length */
-	id->extendedInfoLength = spi_transfer(0xff);
+	id->extendedInfoLength = SPI.transfer(0xff);
 	
 }
 
@@ -100,18 +131,18 @@ void ATD45DB161D::ReadMainMemoryPage(uint16_t page, uint16_t offset)
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send opcode */
-	spi_transfer(AT45DB161D_PAGE_READ);
+	SPI.transfer(AT45DB161D_PAGE_READ);
 	
 	/* Address (page | offset)  */
-	spi_transfer((uint8_t)(page >> 6));
-	spi_transfer((uint8_t)((page << 2) | (offset >> 8)));
-	spi_transfer((uint8_t)(offset & 0xff));
+	SPI.transfer((uint8_t)(page >> 6));
+	SPI.transfer((uint8_t)((page << 2) | (offset >> 8)));
+	SPI.transfer((uint8_t)(offset & 0xff));
 	
 	/* 4 "don't care" bytes */
-	spi_transfer(0x00);
-	spi_transfer(0x00);
-	spi_transfer(0x00);
-	spi_transfer(0x00);
+	SPI.transfer(0x00);
+	SPI.transfer(0x00);
+	SPI.transfer(0x00);
+	SPI.transfer(0x00);
 }
 
 /** 
@@ -128,18 +159,18 @@ void ATD45DB161D::ContinuousArrayRead(uint16_t page, uint16_t offset, uint8_t lo
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send opcode */
-	spi_transfer( low ? AT45DB161D_CONTINUOUS_READ_LOW_FREQ :
+	SPI.transfer( low ? AT45DB161D_CONTINUOUS_READ_LOW_FREQ :
 	                    AT45DB161D_CONTINUOUS_READ_HIGH_FREQ );
 
 	/* Address (page | offset)  */
-	spi_transfer((uint8_t)(page >> 6));
-	spi_transfer((uint8_t)((page << 2) | (offset >> 8)));
-	spi_transfer((uint8_t)(offset & 0xff));
+	SPI.transfer((uint8_t)(page >> 6));
+	SPI.transfer((uint8_t)((page << 2) | (offset >> 8)));
+	SPI.transfer((uint8_t)(offset & 0xff));
 
 	/* High frequency continuous read has a additional don't care byte */
 	if(!low)
 	{
-		spi_transfer(0x00);
+		SPI.transfer(0x00);
 	}
 }
 
@@ -158,7 +189,7 @@ void ATD45DB161D::BufferRead(uint8_t bufferNum, uint16_t offset, uint8_t low)
 	/* Send opcode */
 	if(bufferNum == 1)
 	{
-		spi_transfer(low ? AT45DB161D_BUFFER_1_READ_LOW_FREQ :
+		SPI.transfer(low ? AT45DB161D_BUFFER_1_READ_LOW_FREQ :
 		                   AT45DB161D_BUFFER_1_READ);
 	}
 	else
@@ -169,11 +200,11 @@ void ATD45DB161D::BufferRead(uint8_t bufferNum, uint16_t offset, uint8_t low)
 	}
 	
 	/* 14 "Don't care" bits */
-	spi_transfer(0x00);
+	SPI.transfer(0x00);
 	/* Rest of the "don't care" bits + bits 8,9 of the offset */
-	spi_transfer((uint8_t)(offset >> 8));
+	SPI.transfer((uint8_t)(offset >> 8));
 	/* bits 7-0 of the offset */
-	spi_transfer((uint8_t)(offset & 0xff));
+	SPI.transfer((uint8_t)(offset & 0xff));
 }
 
 /** 
@@ -190,15 +221,15 @@ void ATD45DB161D::BufferWrite(uint8_t bufferNum, uint16_t offset)
 	DF_CS_inactive;    /* Make sure to toggle CS signal in order */
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
-	spi_transfer( (bufferNum == 1) ? AT45DB161D_BUFFER_1_WRITE :
+	SPI.transfer( (bufferNum == 1) ? AT45DB161D_BUFFER_1_WRITE :
 	                                 AT45DB161D_BUFFER_2_WRITE);
 	
 	/* 14 "Don't care" bits */
-	spi_transfer(0x00);
+	SPI.transfer(0x00);
 	/* Rest of the "don't care" bits + bits 8,9 of the offset */
-	spi_transfer((uint8_t)(offset >> 8));
+	SPI.transfer((uint8_t)(offset >> 8));
 	/* bits 7-0 of the offset */
-	spi_transfer((uint8_t)(offset & 0xff));
+	SPI.transfer((uint8_t)(offset & 0xff));
 }
 
 /**
@@ -216,12 +247,12 @@ void ATD45DB161D::BufferToPage(uint8_t bufferNum, uint16_t page, uint8_t erase)
 	/* Opcode */
 	if(erase)
 	{
-		spi_transfer( (bufferNum == 1) ? AT45DB161D_BUFFER_1_TO_PAGE_WITH_ERASE :
+		SPI.transfer( (bufferNum == 1) ? AT45DB161D_BUFFER_1_TO_PAGE_WITH_ERASE :
 	                                     AT45DB161D_BUFFER_2_TO_PAGE_WITH_ERASE);
 	}
 	else
 	{
-		spi_transfer( (bufferNum == 1) ? AT45DB161D_BUFFER_1_TO_PAGE_WITHOUT_ERASE :
+		SPI.transfer( (bufferNum == 1) ? AT45DB161D_BUFFER_1_TO_PAGE_WITHOUT_ERASE :
 	                                     AT45DB161D_BUFFER_2_TO_PAGE_WITHOUT_ERASE);
 	}
 	
@@ -232,9 +263,9 @@ void ATD45DB161D::BufferToPage(uint8_t bufferNum, uint16_t page, uint8_t erase)
 	 *       the main memory to be written
 	 *     - 10 don’t care bits
 	 */
-	spi_transfer((uint8_t)(page >> 6));
-	spi_transfer((uint8_t)(page << 2));
-	spi_transfer(0x00);
+	SPI.transfer((uint8_t)(page >> 6));
+	SPI.transfer((uint8_t)(page << 2));
+	SPI.transfer(0x00);
 	
 	DF_CS_inactive;  /* Start transfer */
 	DF_CS_active;    /* If erase was set, the page will first be erased */
@@ -255,7 +286,7 @@ void ATD45DB161D::PageToBuffer(uint16_t page, uint8_t bufferNum)
 	DF_CS_active;      /* to reset Dataflash command decoder     */
  
 	/* Send opcode */
-	spi_transfer((bufferNum == 1) ? AT45DB161D_TRANSFER_PAGE_TO_BUFFER_1 :
+	SPI.transfer((bufferNum == 1) ? AT45DB161D_TRANSFER_PAGE_TO_BUFFER_1 :
 	                                AT45DB161D_TRANSFER_PAGE_TO_BUFFER_2);
 
 	/*
@@ -265,9 +296,9 @@ void ATD45DB161D::PageToBuffer(uint16_t page, uint8_t bufferNum)
 	 *       the main memory to be written
 	 *     - 10 don’t care bits
 	 */
-	spi_transfer((uint8_t)(page >> 6));
-	spi_transfer((uint8_t)(page << 2));
-	spi_transfer(0x00);
+	SPI.transfer((uint8_t)(page >> 6));
+	SPI.transfer((uint8_t)(page << 2));
+	SPI.transfer(0x00);
 		
 	DF_CS_inactive;  /* Start page transfer */
 	DF_CS_active;
@@ -287,7 +318,7 @@ void ATD45DB161D::PageErase(uint16_t page)
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send opcode */
-	spi_transfer(AT45DB161D_PAGE_ERASE);
+	SPI.transfer(AT45DB161D_PAGE_ERASE);
 	
 	/*
 	 * 3 address bytes consist of :
@@ -296,9 +327,9 @@ void ATD45DB161D::PageErase(uint16_t page)
 	 *       the main memory to be written
 	 *     - 10 don’t care bits
 	 */
-	spi_transfer((uint8_t)(page >> 6));
-	spi_transfer((uint8_t)(page << 2));
-	spi_transfer(0x00);
+	SPI.transfer((uint8_t)(page >> 6));
+	SPI.transfer((uint8_t)(page << 2));
+	SPI.transfer(0x00);
 		
 	DF_CS_inactive;  /* Start block erase */
 	DF_CS_active;
@@ -318,7 +349,7 @@ void ATD45DB161D::BlockErase(uint16_t block)
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send opcode */
-	spi_transfer(AT45DB161D_BLOCK_ERASE);
+	SPI.transfer(AT45DB161D_BLOCK_ERASE);
 	
 	/*
 	 * 3 address bytes consist of :
@@ -326,9 +357,9 @@ void ATD45DB161D::BlockErase(uint16_t block)
 	 *     - 9 block address bits (PA11 - PA3)
 	 *     - 13 don’t care bits
 	 */
-	spi_transfer((uint8_t)(block >> 3));
-	spi_transfer((uint8_t)(block << 5));
-	spi_transfer(0x00);
+	SPI.transfer((uint8_t)(block >> 3));
+	SPI.transfer((uint8_t)(block << 5));
+	SPI.transfer(0x00);
 		
 	DF_CS_inactive;  /* Start block erase */
 	DF_CS_active;
@@ -349,7 +380,7 @@ void ATD45DB161D::SectoreErase(uint8_t sector)
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send opcode */
-	spi_transfer(AT45DB161D_SECTOR_ERASE);
+	SPI.transfer(AT45DB161D_SECTOR_ERASE);
 	
 	/*
 	 * 3 address bytes consist of :
@@ -361,9 +392,9 @@ void ATD45DB161D::SectoreErase(uint8_t sector)
 		 *  - 
 		 *  - 12 don’t care bits
 		 */
-		spi_transfer(0x00);
-		spi_transfer(((sector & 0x01) << 4));
-		spi_transfer(0x00);
+		SPI.transfer(0x00);
+		SPI.transfer(((sector & 0x01) << 4));
+		SPI.transfer(0x00);
 	}
 	else
 	{
@@ -372,9 +403,9 @@ void ATD45DB161D::SectoreErase(uint8_t sector)
 		 *  - 4 sector number bits
 		 *  - 18 don't care bits 
 		 */
-		spi_transfer(sector << 1);
-		spi_transfer(0x00);
-		spi_transfer(0x00);
+		SPI.transfer(sector << 1);
+		SPI.transfer(0x00);
+		SPI.transfer(0x00);
 	}
 				
 	DF_CS_inactive;  /* Start block erase */
@@ -396,10 +427,10 @@ void ATD45DB161D::ChipErase()
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send chip erase sequence */
-	spi_transfer(AT45DB161D_CHIP_ERASE_0);
-	spi_transfer(AT45DB161D_CHIP_ERASE_1);
-	spi_transfer(AT45DB161D_CHIP_ERASE_2);
-	spi_transfer(AT45DB161D_CHIP_ERASE_3);
+	SPI.transfer(AT45DB161D_CHIP_ERASE_0);
+	SPI.transfer(AT45DB161D_CHIP_ERASE_1);
+	SPI.transfer(AT45DB161D_CHIP_ERASE_2);
+	SPI.transfer(AT45DB161D_CHIP_ERASE_3);
 				
 	DF_CS_inactive;  /* Start chip erase */
 	DF_CS_active;
@@ -425,13 +456,13 @@ void ATD45DB161D::BeginPageWriteThroughBuffer(uint16_t page, uint16_t offset, ui
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send opcode */
-	spi_transfer((bufferNum == 1) ? AT45DB161D_PAGE_THROUGH_BUFFER_1 :
+	SPI.transfer((bufferNum == 1) ? AT45DB161D_PAGE_THROUGH_BUFFER_1 :
 	                                AT45DB161D_PAGE_THROUGH_BUFFER_2);
 
 	/* Address */
-	spi_transfer((uint8_t)(page >> 6));
-	spi_transfer((uint8_t)((page << 2) | (offset >> 8)));
-	spi_transfer((uint8_t)offset);
+	SPI.transfer((uint8_t)(page >> 6));
+	SPI.transfer((uint8_t)((page << 2) | (offset >> 8)));
+	SPI.transfer((uint8_t)offset);
 }
 
 /**
@@ -468,13 +499,13 @@ int8_t ATD45DB161D::ComparePageToBuffer(uint16_t page, uint8_t bufferNum)
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
 	/* Send opcode */
-	spi_transfer((bufferNum == 1) ? AT45DB161D_COMPARE_PAGE_TO_BUFFER_1 :
+	SPI.transfer((bufferNum == 1) ? AT45DB161D_COMPARE_PAGE_TO_BUFFER_1 :
 	                                AT45DB161D_COMPARE_PAGE_TO_BUFFER_2);
 	
 	/* Page address */
-	spi_transfer((uint8_t)(page >> 6));
-	spi_transfer((uint8_t)(page << 2));
-	spi_transfer(0x00);
+	SPI.transfer((uint8_t)(page >> 6));
+	SPI.transfer((uint8_t)(page << 2));
+	SPI.transfer(0x00);
 	
 	DF_CS_inactive;  /* Start comparaison */
 	DF_CS_active;
@@ -503,7 +534,7 @@ void ATD45DB161D::DeepPowerDown()
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 	
 	/* Send opcode */
-	spi_transfer(AT45DB161D_DEEP_POWER_DOWN);
+	SPI.transfer(AT45DB161D_DEEP_POWER_DOWN);
 	
 	/* Enter Deep Power-Down mode */
 	DF_CS_inactive;
@@ -521,7 +552,7 @@ void ATD45DB161D::ResumeFromDeepPowerDown()
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 	
 	/* Send opcode */
-	spi_transfer(AT45DB161D_RESUME_FROM_DEEP_POWER_DOWN);
+	SPI.transfer(AT45DB161D_RESUME_FROM_DEEP_POWER_DOWN);
 	
 	/* Resume device */
 	DF_CS_inactive;

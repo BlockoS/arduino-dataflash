@@ -1,3 +1,4 @@
+#include <SPI.h>
 #include "at45db161d.h"
 
 #define NUM_PAGES 8
@@ -12,13 +13,13 @@ void setup()
   ATD45DB161D::ID id;
   
   /* Initialize SPI */
-  spi_init();
+  SPI.begin();
   
   /* Let's wait 1 second, allowing use to press the serial monitor button :p */
   delay(1000);
   
   /* Initialize dataflash */
-  dataflash.Init(5,6,7);
+  dataflash.begin(5,6,7);
     
   delay(10);
   
@@ -74,15 +75,15 @@ void loop()
   /* Transfer the message */
   for(i=0; message[i] != '\0'; ++i)
   {
-    spi_transfer(message[i]);
+    SPI.transfer(message[i]);
   }
   /* Transfer the loop counter (as string) */  
   for(i=0; buffer[i] != '\0'; ++i)
   {
-    spi_transfer(buffer[i]);
+    SPI.transfer(buffer[i]);
   }
   
-  spi_transfer('\n');
+  SPI.transfer('\n');
   
   ++loop_cnt;
   
@@ -92,12 +93,12 @@ void loop()
     /* To celebrate this we write the string "\nOVERFLOW!\n" to Buffer 1 */
     for(i=0; overflow[i] != '\0'; ++i)
     {
-      spi_transfer(overflow[i]);
+      SPI.transfer(overflow[i]);
     }
   }
 
   /* Write '\0' to buffer 1. This will help us know that we must stop reading from it. */
-  spi_transfer('\0');
+  SPI.transfer('\0');
 
   /* Transfer buffer 1 to 'page' page (with builtin erase) */
   dataflash.BufferToPage(1, page, 1);	
@@ -126,7 +127,7 @@ void loop()
       j = 0;
       do
       {
-        data = spi_transfer(0xff);
+        data = SPI.transfer(0xff);
         if(data != '\0')
           Serial.print(data);
         ++j;

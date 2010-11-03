@@ -5,9 +5,8 @@
 #ifndef AT45DB161D_H
 #define AT45DB161D_H
 
-#include <avr/pgmspace.h>
 #include <inttypes.h>
-#include "WProgram.h"
+#include "SPI.h"
 
 #include "at45db161d_commands.h"
 
@@ -31,20 +30,9 @@
  **/
 
 /**
- * @defgroup SPI SPI pinout and transfert function
+ * @defgroup PINOUT Default pinout
  * @{
  **/
-#ifndef SPI
-/**
- * @defgroup SPI_Pinout SPI pinout
- * @{
- **/
-/** Serial input (SI) **/
-#define DATAOUT     11
-/** Serial output (SO) **/
-#define DATAIN      12
-/** Serial clock (SCK) **/
-#define SPICLOCK    13
 /** Chip select (CS) **/
 #define SLAVESELECT 10
 /** Reset (Reset) **/
@@ -53,49 +41,6 @@
 #define WP           7
 /**
  * @} 
- **/
-
-/**
- * @brief Transfer a byte via spi
- * @param data Data to transfer via SPI
- * @return The content of the SPI data register (SPDR)
- **/
-inline uint8_t spi_transfer(uint8_t data)
-{
-	SPDR = data;
-	/* SPIF is set when the transmission is complete
-	 * (ie when a byte was received) */
-	while(!(SPSR & (1 << SPIF))) ;
-	return SPDR;
-}
-
-/**
- * 
- **/
-inline void spi_init()
-{
-	uint8_t clr;
-
-	/* Initialize pinout */
-	pinMode(DATAOUT,  OUTPUT);
-	pinMode(DATAIN,   INPUT);
-	pinMode(SPICLOCK, OUTPUT);
-
-	/* As the atmega SPI, SS must be in output mode (or high) */ 
-	pinMode(SLAVESELECT, OUTPUT);
-	digitalWrite(SLAVESELECT, HIGH); // Unnecessary
-	
-	/* Setup SPI (Enable SPI, Master, MODE 3) */
-	SPCR = (1 << SPE) | (1 << MSTR) | (1 << CPOL) | (1 << CPHA);
-
-	/* Clear pending SPI interrupts */
-	clr = SPSR;
-	clr = SPDR;
-}
-
-#endif /* SPI */
-/**
- * @}
  **/
 
 /**
@@ -168,13 +113,18 @@ class ATD45DB161D
 		~ATD45DB161D();
 
 		/** 
- 		 * Setup SPI and pinout
+ 		 * Setup pinout and set SPI configuration
  		 * @param csPin Chip select (Slave select) pin (CS)
  		 * @param resetPin Reset pin (RESET)
  		 * @param wpPin Write protect pin (WP)
  		 * **/
-		void Init(uint8_t csPin=SLAVESELECT, uint8_t resetPin=RESET, uint8_t wpPin=WP);
-
+		void begin(uint8_t csPin=SLAVESELECT, uint8_t resetPin=RESET, uint8_t wpPin=WP);
+		
+		/**
+		 * Disable device and restore SPI configuration
+		 **/
+		void end();
+		
 		/**
 		 * Activate device.
 		 **/
@@ -200,7 +150,7 @@ class ATD45DB161D
 		/** 
 		 * Read Manufacturer and Device ID 
 		 * @note if id.extendedInfoLength is not equal to zero,
-		 *       successive calls to spi_transfer(0xff) will return
+		 *       successive calls to SPI.transfer(0xff) will return
 		 *       the extended device information string bytes.
 		 * @param id Pointer to the ID structure to initialize
 		 **/
@@ -357,11 +307,21 @@ class ATD45DB161D
 		}
 		
 		/** Get chip Select (CS) pin **/
-		inline uint8_t ChipSelectPin  () { return m_chipSelectPin;   }
+		inline uint8_t ChipSelectPin  () const { return m_chipSelectPin;   }
 		/** Get reset (RESET) pin **/
-		inline uint8_t ResetPin       () { return m_resetPin;        }
+		inline uint8_t ResetPin       () const { return m_resetPin;        }
 		/** Get write protect (WP) pin **/
-		inline uint8_t WriteProtectPin() { return m_writeProtectPin; }
+		inline uint8_t WriteProtectPin() const { return m_writeProtectPin; }
+	
+		/**
+		 * @see begin
+		 * Kept for backward compatibility reasons
+		 **/
+		inline void Init(uint8_t csPin=SLAVESELECT, uint8_t resetPin=RESET, uint8_t wpPin=WP)
+		{
+			begin(csPin, resetPin, wpPin);
+		}
+		
 		
 	private:
 		/* Chip select pin (CS) */
@@ -370,6 +330,9 @@ class ATD45DB161D
 		uint8_t m_resetPin;
 		/* Write protect pin (WP) */
 		uint8_t m_writeProtectPin;
+		/* SPI registers backup */
+		uint8_t m_SPCR;
+		uint8_t m_SPSR;
 };
 
 /**
