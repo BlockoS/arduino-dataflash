@@ -17,8 +17,6 @@
 
 /**
  * @defgroup Chip erase command prevention
- * @comment Read Datasheet to learn why it's disabled
- * @comment Change this block to define "CHIP_ERASE_ENABLED" to enable
  * @note Will be removed once chip erase is re-implemented
  * @{
  **/
@@ -206,7 +204,7 @@ class ATD45DB161D
 		/**
 		 * Transfer a page of data from main memory to buffer 1 or 2.
 		 * @param page Main memory page to transfer
-		 * @param buffer Buffer (1 or 2) where the data will be written
+		 * @param bufferNum Buffer (1 or 2) where the data will be written
 		 **/
 		void PageToBuffer(uint16_t page, uint8_t bufferNum);
 
@@ -322,17 +320,12 @@ class ATD45DB161D
 			begin(csPin, resetPin, wpPin);
 		}
 		
-		
 	private:
-		/* Chip select pin (CS) */
-		uint8_t m_chipSelectPin;
-		/* Reset pin (RESET) */
-		uint8_t m_resetPin;
-		/* Write protect pin (WP) */
-		uint8_t m_writeProtectPin;
-		/* SPI registers backup */
-		uint8_t m_SPCR;
-		uint8_t m_SPSR;
+		uint8_t m_chipSelectPin;   /**< Chip select pin (CS)   **/
+		uint8_t m_resetPin;        /**< Reset pin (RESET)      **/
+		uint8_t m_writeProtectPin; /**< Write protect pin (WP) **/		
+		uint8_t m_SPCR;            /**< SPI register backup    **/
+		uint8_t m_SPSR;            /**< SPI register backup    **/
 };
 
 /**

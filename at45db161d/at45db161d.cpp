@@ -279,7 +279,7 @@ void ATD45DB161D::BufferToPage(uint8_t bufferNum, uint16_t page, uint8_t erase)
 /**
  * Transfer a page of data from main memory to buffer 1 or 2.
  * @param page Main memory page to transfer
- * @param buffer Buffer (1 or 2) where the data will be written
+ * @param bufferNum Buffer (1 or 2) where the data will be written
  **/
 void ATD45DB161D::PageToBuffer(uint16_t page, uint8_t bufferNum)
 {
