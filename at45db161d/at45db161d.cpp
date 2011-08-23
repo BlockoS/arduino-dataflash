@@ -242,6 +242,10 @@ void ATD45DB161D::BufferWrite(uint8_t bufferNum, uint16_t offset)
  **/
 void ATD45DB161D::BufferToPage(uint8_t bufferNum, uint16_t page, uint8_t erase)
 {
+	/* Wait until the Dataflash is busy */
+  	while(!(ReadStatusRegister() & READY_BUSY))
+  	{}
+	
 	DF_CS_inactive;    /* Make sure to toggle CS signal in order */
 	DF_CS_active;      /* to reset Dataflash command decoder     */
 
@@ -270,10 +274,6 @@ void ATD45DB161D::BufferToPage(uint8_t bufferNum, uint16_t page, uint8_t erase)
 	
 	DF_CS_inactive;  /* Start transfer */
 	DF_CS_active;    /* If erase was set, the page will first be erased */
-
-	/* Wait for the end of the transfer */
-  	while(!(ReadStatusRegister() & READY_BUSY))
-  	{}
 }
 
 /**
@@ -283,6 +283,10 @@ void ATD45DB161D::BufferToPage(uint8_t bufferNum, uint16_t page, uint8_t erase)
  **/
 void ATD45DB161D::PageToBuffer(uint16_t page, uint8_t bufferNum)
 {
+	/* Wait until the Dataflash is busy */
+  	while(!(ReadStatusRegister() & READY_BUSY))
+  	{}
+	
 	DF_CS_inactive;    /* Make sure to toggle CS signal in order */
 	DF_CS_active;      /* to reset Dataflash command decoder     */
  
@@ -303,10 +307,6 @@ void ATD45DB161D::PageToBuffer(uint16_t page, uint8_t bufferNum)
 		
 	DF_CS_inactive;  /* Start page transfer */
 	DF_CS_active;
-
-	/* Wait for the end of the transfer */
-  	while(!(ReadStatusRegister() & READY_BUSY))
-  	{}
 }
 
 /** 
@@ -375,7 +375,7 @@ void ATD45DB161D::BlockErase(uint16_t block)
  * at45db161d and only one can be erased at one time.
  * @param sector Sector to erase (1-15)
  **/
-void ATD45DB161D::SectoreErase(uint8_t sector)
+void ATD45DB161D::SectorErase(uint8_t sector)
 {
 	DF_CS_inactive;    /* Make sure to toggle CS signal in order */
 	DF_CS_active;      /* to reset Dataflash command decoder     */
@@ -560,16 +560,16 @@ void ATD45DB161D::ResumeFromDeepPowerDown()
 	
 	/* The CS pin must stay high during t_RDPD microseconds before the device
 	 * can receive any commands.
-	 * On the at45db161D t_RDPD = 35 microseconds. But we will wait 100
+	 * On the at45db161D t_RDPD = 35 microseconds. But we will wait 40
 	 * (just to be sure). */
-	delay(100);
+	delay(40);
 }
 
 void ATD45DB161D::HardReset()
 {
 	digitalWrite(m_resetPin, LOW);
 
-	/* The reset pin should stay low for at least 10ms (table 18.4)*/
+	/* The reset pin should stay low for at least 10us (table 18.4)*/
 	delayMicroseconds(10);
 	
 	/* According to the Dataflash spec (21.6 Reset Timing),
@@ -581,7 +581,7 @@ void ATD45DB161D::HardReset()
 		
 	digitalWrite(m_resetPin, HIGH);
 	
-	/* Reset recovery time = 1ms */
+	/* Reset recovery time = 1us */
 	delayMicroseconds(1);
 	digitalWrite(m_chipSelectPin, LOW);
 }

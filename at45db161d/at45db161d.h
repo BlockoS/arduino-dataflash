@@ -18,6 +18,9 @@
 /**
  * @defgroup Chip erase command prevention
  * @note Will be removed once chip erase is re-implemented
+ * @comment Datasheets are missing errata, but see AT45DB321D. Basically the
+ * @comment silicon is buggy and Atmel suggests to use block erase instead,
+ * @comment so sector erase may not work either.
  * @{
  **/
 #ifdef CHIP_ERASE_ENABLED
@@ -228,7 +231,7 @@ class ATD45DB161D
 		 * @param sector Sector to erase
 		 * @warning UNTESTED
 		 **/
-		void SectoreErase(uint8_t sector);
+		void SectorErase(uint8_t sector);
 
 #ifdef CHIP_ERASE_ENABLED
 		/** 
