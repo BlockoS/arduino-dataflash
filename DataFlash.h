@@ -16,6 +16,9 @@
 /**
  * @defgroup Chip erase command prevention
  * @note Will be removed once chip erase is re-implemented
+ * @comment Datasheets are missing errata, but see AT45DB321D. Basically the
+ * @comment silicon is buggy and Atmel suggests to use block erase instead,
+ * @comment so sector erase may not work either.
  * @{
  **/
 #ifdef CHIP_ERASE_ENABLED
@@ -85,9 +88,9 @@
  **/
 
 /**
- * AT45DBXXXD Atmel Datflash device.
+ * AT45DBXXXD Atmel DataFlash device.
  **/
-class Dataflash
+class DataFlash
 {
 	public:
 		/** 
@@ -104,9 +107,9 @@ class Dataflash
 
 	public:
 		/** Constructor **/
-		Dataflash();
+		DataFlash();
 		/** Destructor **/
-		~Dataflash();
+		~DataFlash();
 
 		/** 
  		 * Setup pinout and set SPI configuration
@@ -142,7 +145,7 @@ class Dataflash
 		 * @note if id.extendedInfoLength is not equal to zero,
 		 *       successive calls to SPI.transfer(0xff) will return
 		 *       the extended device information string bytes.
-		 * @param id Pointer to the ID structure to initialize
+		 * @param id ID structure
 		 **/
 		void ReadManufacturerAndDeviceID(DataFlash::ID &id);
 		
@@ -220,7 +223,7 @@ class Dataflash
 		 * @param sector Sector to erase
 		 * @warning UNTESTED
 		 **/
-		void SectoreErase(uint8_t sector);
+		void SectorErase(uint8_t sector);
 
 #ifdef CHIP_ERASE_ENABLED
 		/** 
@@ -337,7 +340,7 @@ class Dataflash
 		 * </tr>
 		 * </table>
 		 */
-		static const uint8_t* PAGE_BITS;
+		static const uint8_t PAGE_BITS[7];
 		
 		uint8_t m_chipSelectPin;   /**< Chip select pin (CS)   **/
 		uint8_t m_resetPin;        /**< Reset pin (RESET)      **/
@@ -350,7 +353,7 @@ class Dataflash
 /**
  * Activate device.
  **/
-inline void Dataflash::Enable()
+inline void DataFlash::Enable()
 {
 	digitalWrite(m_chipSelectPin, LOW);
 }
@@ -358,7 +361,7 @@ inline void Dataflash::Enable()
 /**
  * Deactivate device.
  **/
-inline void Dataflash::Disable()
+inline void DataFlash::Disable()
 {
 	digitalWrite(m_chipSelectPin, HIGH);
 }
@@ -366,7 +369,7 @@ inline void Dataflash::Disable()
 /**
  * Enable write protection.
  **/
-inline void Dataflash::EnableWriteProtection()
+inline void DataFlash::EnableWriteProtection()
 {
 	digitalWrite(m_writeProtectPin, LOW);
 }
@@ -374,25 +377,25 @@ inline void Dataflash::EnableWriteProtection()
 /**
  * Disable write protection.
  **/
-inline void Dataflash::DisableWriteProtection()
+inline void DataFlash::DisableWriteProtection()
 {
 	digitalWrite(m_writeProtectPin, HIGH);
 }
 
 /** Get chip Select (CS) pin **/
-inline uint8_t Dataflash::ChipSelectPin  () const
+inline uint8_t DataFlash::ChipSelectPin  () const
 {
 	return m_chipSelectPin;
 }
 
 /** Get reset (RESET) pin **/
-inline uint8_t Dataflash::ResetPin       () const
+inline uint8_t DataFlash::ResetPin       () const
 {
 	return m_resetPin;
 }
 
 /** Get write protect (WP) pin **/
-inline uint8_t Dataflash::WriteProtectPin() const
+inline uint8_t DataFlash::WriteProtectPin() const
 {
 	return m_writeProtectPin;
 }
@@ -401,7 +404,7 @@ inline uint8_t Dataflash::WriteProtectPin() const
  * @see begin
  * Kept for backward compatibility reasons
  **/
-inline void Dataflash::Init(uint8_t csPin=SLAVESELECT, uint8_t resetPin=RESET, uint8_t wpPin=WP)
+inline void DataFlash::Init(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
 {
 	begin(csPin, resetPin, wpPin);
 }

@@ -1,10 +1,15 @@
+0. Don't brutally expose DataFlash commands. Give instead a more "usable" interface. Like DataFlash::Write(const uint8_t* data, size_t dataLen, uint16_t page, uint16_t offset) for example.
+
 1. Add support the rest of the AT45 family.
 	Retrieve device density from status register on init
-	ref: "Using Atmel’s DataFlash" tab 4 & 5 p8
+	ref: "Using Atmel's DataFlash" tab 4 & 5 p8
 	     "DataFlash Binary Page Size"
  	We'd be able to deduce the default page size and bits :
 	density : 512k, 1M, 2M, 4M, 8M, 16M, 32M, 64M
 	page size : 264, 264, 264, 264, 264, 528, 528, 1056
 	page bits : 9, 9, 9, 9, 9, 10, 10, 11
-2. Implement chip erase as multiple sector erases
-3. Clean up and publish continuous write code
+2. Reimplement sector erase.
+
+3. Implement chip erase as multiple sector erases
+
+4. Clean up and publish continuous write code

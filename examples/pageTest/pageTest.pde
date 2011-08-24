@@ -1,17 +1,16 @@
 #include <SPI.h>
-#include "at45db161d_commands.h"
-#include "at45db161d.h"
+#include "DataFlash.h"
 
 #define NUM_PAGES 8
 
-ATD45DB161D dataflash;
-uint8_t     loop_cnt;
-uint16_t    page;
+DataFlash dataflash;
+uint8_t   loop_cnt;
+uint16_t  page;
 
 void setup()
 {   
-  uint8_t        status;
-  ATD45DB161D::ID id;
+  uint8_t status;
+  DataFlash::ID id;
   
   /* Initialize SPI */
   SPI.begin();
@@ -28,7 +27,7 @@ void setup()
   status = dataflash.ReadStatusRegister();
   
   /* Read manufacturer and device ID */
-  dataflash.ReadManufacturerAndDeviceID(&id);
+  dataflash.ReadManufacturerAndDeviceID(id);
 
   /* Set baud rate for serial communication */
   Serial.begin(115200);
