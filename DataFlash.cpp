@@ -475,8 +475,9 @@ void DataFlash::pageToBuffer(uint16_t page, uint8_t bufferNum)
                              DATAFLASH_TRANSFER_PAGE_TO_BUFFER_1);
 
     /* Output the 3 bytes adress.
-     * The only constant between all dataflashes is number of trailing don't
-     * care bits. It's equal to the number of page bits. */
+     * For all DataFlashes 011D to 642D the number of trailing don't care bits
+     * is equal to the number of page bits plus 3 (a block consists of 8 (1<<3)
+     * pages), and always larger than 8 so the third byte is always 0. */
     SPI.transfer(pageToHiU8(page));
     SPI.transfer(pageToLoU8(page));
     SPI.transfer(0);
@@ -523,12 +524,14 @@ void DataFlash::blockErase(uint16_t block)
     /* Send opcode */
     SPI.transfer(DATAFLASH_BLOCK_ERASE);
     
-	/* Output the 3 bytes adress.
-	 * The only constant between all dataflashes is number of trailing don't care bits.
-	 * It's equal to the number of page bits plus 3 (a block consist of 8 (1<<3) pages. */
-    uint8_t dontCare = m_bufferSize + 3;
-    SPI.transfer((uint8_t)(block >> (16 - dontCare))); 
-    SPI.transfer((uint8_t)(block << (dontCare - 8)));
+    /* Output the 3 bytes adress.
+     * For all DataFlashes 011D to 642D the number of trailing don't care bits
+     * is equal to the number of page bits plus 3 (a block consists of 8 (1<<3)
+     * pages), and always larger than 8 so the third byte is always 0. */
+    uint8_t rightShift = m_bufferSize + 3 - 8;
+    block >>= rightShift;
+    SPI.transfer(highByte(block)); 
+    SPI.transfer(lowByte(block));
     SPI.transfer(0x00);
         
     /* Start block erase.
