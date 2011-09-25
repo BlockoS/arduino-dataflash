@@ -1,9 +1,60 @@
+/*
+Arduino Library to access Atmel DataFlash flash memory ICs with SPI interface.
+
+History:
+
+Version 1.x, 2010-2011
+
+Released as at45db161d by ...
+[Add / change.]
+
+
+Version 2.0, 30 Aug 2011.
+
+Based on the library by BlockoS, dalek branch, of 25 Aug 2011.
+http://github.com/BlockoS/arduino-dataflash/tarball/dalek
+Substantially modified and improved by Volker Kuhlmann.
+
+ - Allow a quick .begin() / .end() to switch the SPI interface between
+   multiple SPI devices.
+ - Efficiency improvements.
+ - Re-arrange the mechanism to wait for the chip to become ready such that
+   waiting only happens when necessary. This allows interleaved writing - fill
+   up one buffer with new data while the other buffer is programmed to the 
+   flash memory array. The downside is the the user now has to wait sometimes
+   too, depending on the state of the flash chip and the user program.
+ - Several improvements resulted in incompatible changes to the function API.
+   This shouldn't matter because the DataFlash library is in the process of
+   evolving as an improvement of the at45db161d library and handles all the
+   AT45DBxxxD flash ICs instead of just the AT45DB161D.
+
+
+Copyright (C) 2010-2011 by Vincent Cruz.
+cruz.vincent@gmail.com
+
+Copyright (C) 2011 by Volker Kuhlmann.
+http://volker.top.geek.nz/contact.html
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 /**
  * @file DataFlashCommands.h
- * @brief AT45DBXXXD commands opcodes
+ * @brief AT45DBxxxD commands opcodes
  **/
-#ifndef DATA_FLASH_COMMANDS_H
-#define DATA_FLASH_COMMANDS_H
+#ifndef DATAFLASH_COMMANDS_H_
+#define DATAFLASH_COMMANDS_H_
 
 /**
  * @defgroup dataflash_commands DataFlash commands opcodes
@@ -166,4 +217,4 @@
  * @}
  **/
 
-#endif /* DATA_FLASH_COMMANDS_H */
+#endif /* DATAFLASH_COMMANDS_H_ */

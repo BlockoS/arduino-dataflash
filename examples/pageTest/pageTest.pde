@@ -19,15 +19,17 @@ void setup()
   delay(1000);
   
   /* Initialize dataflash */
-  dataflash.begin(5,6,7);
+  dataflash.setup(5,6,7);
     
   delay(10);
   
+  dataflash.begin();
+  
   /* Read status register */
-  status = dataflash.ReadStatusRegister();
+  status = dataflash.status();
   
   /* Read manufacturer and device ID */
-  dataflash.ReadManufacturerAndDeviceID(id);
+  dataflash.readID(id);
 
   /* Set baud rate for serial communication */
   Serial.begin(115200);
@@ -71,7 +73,7 @@ void loop()
   
   /* Set dataflash so that any call to spi_tranfer will write the byte
    * given as argument to the Buffer 1 */
-  dataflash.BufferWrite(1, 0);
+  dataflash.bufferWrite(1, 0);
   /* Transfer the message */
   for(i=0; message[i] != '\0'; ++i)
   {
@@ -101,7 +103,7 @@ void loop()
   SPI.transfer('\0');
 
   /* Transfer buffer 1 to 'page' page (with builtin erase) */
-  dataflash.BufferToPage(1, page, 1);	
+  dataflash.bufferToPage(1, page);	
 
   ++page;
   /* When we wrote the number of pages we wanted (NUM_PAGES), we display their contents by
@@ -116,12 +118,12 @@ void loop()
       if(i & 1)
       {
         Serial.println("Page to buffer");
-        dataflash.PageToBuffer(i, 1);    
-        dataflash.BufferRead(1, 0, 1);
+        dataflash.pageToBuffer(i, 1);    
+        dataflash.bufferRead(1, 0);
       }
       else {   
         Serial.println("Page read");
-        dataflash.ReadMainMemoryPage(i, 0); 
+        dataflash.pageRead(i, 0); 
       }
       
       j = 0;
