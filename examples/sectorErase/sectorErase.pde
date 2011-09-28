@@ -168,7 +168,7 @@ void setup()
     res += testSectorErase(AT45_SECTOR_0A);
     res += testSectorErase(AT45_SECTOR_0B);
   
-    for(uint8_t i=75; i<79; i++)
+    for(uint8_t i=10; i<14; i++)
     {
         res += testSectorErase(i);
     }
