@@ -155,6 +155,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * @}
  **/
 
+ /**
+ * @defgroup SPECIFIC_SECTORS Special sectors ID.
+ * The following list gives the number of pages per sector (P) for the AT45 family:
+ *   AT45DB011D 128 
+ *   AT45DB021D 128
+ *   AT45DB041D 256
+ *   AT45DB081D 256
+ *   AT45DB161D 256
+ *   AT45DB321D 128
+ *   AT45DB642D 256
+ * On every DataFlash, the first 8 pages belongs to the sectod 0a. It's followed by 
+ * sector 0b which holds only (P-8) pages (248 on an AT45DB161D). Then comes N-1 
+ * (N is the number of sectors) sectors of size P numbered from 1 to N-1 (included).
+ * @see chapter titled "Memory Array" in the corresponding DataFlash datasheet.
+ * @{
+ **/
+/**
+ * Sector 0a id.
+ **/
+#define AT45_SECTOR_0A  0
+/**
+ * Sector 0b id.
+ **/
+#define AT45_SECTOR_0B -1
+ /**
+  * @}
+  **/
+ 
+ 
 /**
  * AT45DBxxxD Atmel DataFlash device.
  **/
@@ -384,9 +413,8 @@ class DataFlash
         /**
          * Erase a sector of blocks in a single operation.
          * @param sector Sector to erase.
-         * @warning UNTESTED
          **/
-        void sectorErase(uint8_t sector);
+        void sectorErase(int8_t sector);
 
 #ifdef AT45_CHIP_ERASE_ENABLED
         /**

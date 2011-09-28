@@ -131,10 +131,10 @@ void DataFlash::setup(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
 
     /* Bit 3 of status register is ignored as it's always 1. Note that it is
      * equal to 0 on the obsolete chip with density higher than 64 MB. */
-    uint8_t densityCode = ((stat & 0x38) >> 3) - 1; 
-	m_bufferSize = m_infos.bufferSize[densityCode];
-	m_pageSize   = m_infos.pageSize[densityCode];  
-	m_sectorSize = m_infos.sectorSize[densityCode];
+    uint8_t deviceIndex = ((stat & 0x38) >> 3) - 1; 
+	m_bufferSize = m_infos.bufferSize[deviceIndex];
+	m_pageSize   = m_infos.pageSize[deviceIndex];  
+	m_sectorSize = m_infos.sectorSize[deviceIndex];
 }
 
 /** 
@@ -542,9 +542,8 @@ void DataFlash::blockErase(uint16_t block)
 /** 
  * Erase a sector of blocks in a single operation.
  * @param sector Sector to erase.
- * @warning UNTESTED
  **/
-void DataFlash::sectorErase(uint8_t sector)
+void DataFlash::sectorErase(int8_t sector)
 {
     /* Wait for the end of the previous operation. */
     waitUntilReady();
@@ -554,16 +553,17 @@ void DataFlash::sectorErase(uint8_t sector)
     /* Send opcode */
     SPI.transfer(DATAFLASH_SECTOR_ERASE);
 	
-	if((sector == 0xa) || (sector == 0xb))
-	{
-		SPI.transfer(0x00);
-        SPI.transfer((sector & 0x01) << 4);
-	}
-	else
-	{
-		SPI.transfer(sector << (m_bufferSize + m_pageSize - m_sectorSize));
-		SPI.transfer(0x00);
-	}
+    if((sector == AT45_SECTOR_0A) || (sector == AT45_SECTOR_0B))
+    {
+        SPI.transfer(0x00);
+        SPI.transfer((static_cast<uint8_t>(-sector) & 0x01) << (m_bufferSize - 5));
+    }
+    else
+    {
+        uint8_t shift = m_bufferSize + m_pageSize - m_sectorSize - 16;        
+        SPI.transfer(sector << shift);
+        SPI.transfer(0x00);
+    }
 	
 	SPI.transfer(0x00);
 	
