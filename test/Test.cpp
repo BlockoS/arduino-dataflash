@@ -1,5 +1,8 @@
 /*
 Simple Unit test framework.
+Based on UnitTest++ by Noel Llopis and Charles Nicholson.
+This is basically a stripped down version meant to be run on a
+microcontroller.
 
 History:
 
