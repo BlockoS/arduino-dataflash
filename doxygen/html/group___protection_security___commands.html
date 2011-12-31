@@ -35,7 +35,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -75,57 +77,63 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#define-members">Defines</a>  </div>
   <div class="headertitle">
 <h1>Protection and Security Commands</h1>  </div>
-<div class="ingroups"><a class="el" href="group___a_t45_d_b161_d__commands.html">AT45DB161D commands opcodes</a></div></div>
+<div class="ingroups"><a class="el" href="group___dataflash__commands.html">DataFlash commands opcodes</a></div></div>
 <div class="contents">
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___protection_security___commands.html#gabb2deb8064ccb3cbba2ca11aaf5e5c9d">AT45DB161D_READ_SECTOR_PROTECTION_REGISTER</a>&#160;&#160;&#160;0x32</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___protection_security___commands.html#ga310058ac450660fd6a0f1991d118e0ec">AT45DB161D_READ_SECTOR_LOCKDOWN_REGISTER</a>&#160;&#160;&#160;35H</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___protection_security___commands.html#gacfc2c7315a438cada5f8036a28888368">AT45DB161D_READ_SECURITY_REGISTER</a>&#160;&#160;&#160;0x77</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___protection_security___commands.html#gade813d9a89c3c0d8c7a83b954ed95bc4">DATAFLASH_READ_SECTOR_PROTECTION_REGISTER</a>&#160;&#160;&#160;0x32</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Sector Protection Register.  <a href="#gade813d9a89c3c0d8c7a83b954ed95bc4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___protection_security___commands.html#gaabc6b8623a5c580350386347f9e040ae">DATAFLASH_READ_SECTOR_LOCKDOWN_REGISTER</a>&#160;&#160;&#160;35H</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Sector Lockdown Register.  <a href="#gaabc6b8623a5c580350386347f9e040ae"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___protection_security___commands.html#ga9d772d04c3ad5a069d0944f0a4c41e75">DATAFLASH_READ_SECURITY_REGISTER</a>&#160;&#160;&#160;0x77</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Security Register.  <a href="#ga9d772d04c3ad5a069d0944f0a4c41e75"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <dl class="warning"><dt><b>Warning:</b></dt><dd>UNIMPLEMENTED </dd></dl>
 <hr/><h2>Define Documentation</h2>
-<a class="anchor" id="ga310058ac450660fd6a0f1991d118e0ec"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_READ_SECTOR_LOCKDOWN_REGISTER" ref="ga310058ac450660fd6a0f1991d118e0ec" args="" -->
+<a class="anchor" id="gaabc6b8623a5c580350386347f9e040ae"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_READ_SECTOR_LOCKDOWN_REGISTER" ref="gaabc6b8623a5c580350386347f9e040ae" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_READ_SECTOR_LOCKDOWN_REGISTER&#160;&#160;&#160;35H</td>
+          <td class="memname">#define DATAFLASH_READ_SECTOR_LOCKDOWN_REGISTER&#160;&#160;&#160;35H</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Read Sector Lockdown Register </p>
+
+<p>Read Sector Lockdown Register. </p>
 
 </div>
 </div>
-<a class="anchor" id="gabb2deb8064ccb3cbba2ca11aaf5e5c9d"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_READ_SECTOR_PROTECTION_REGISTER" ref="gabb2deb8064ccb3cbba2ca11aaf5e5c9d" args="" -->
+<a class="anchor" id="gade813d9a89c3c0d8c7a83b954ed95bc4"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_READ_SECTOR_PROTECTION_REGISTER" ref="gade813d9a89c3c0d8c7a83b954ed95bc4" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_READ_SECTOR_PROTECTION_REGISTER&#160;&#160;&#160;0x32</td>
+          <td class="memname">#define DATAFLASH_READ_SECTOR_PROTECTION_REGISTER&#160;&#160;&#160;0x32</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Read Sector Protection Register </p>
+
+<p>Read Sector Protection Register. </p>
 
 </div>
 </div>
-<a class="anchor" id="gacfc2c7315a438cada5f8036a28888368"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_READ_SECURITY_REGISTER" ref="gacfc2c7315a438cada5f8036a28888368" args="" -->
+<a class="anchor" id="ga9d772d04c3ad5a069d0944f0a4c41e75"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_READ_SECURITY_REGISTER" ref="ga9d772d04c3ad5a069d0944f0a4c41e75" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_READ_SECURITY_REGISTER&#160;&#160;&#160;0x77</td>
+          <td class="memname">#define DATAFLASH_READ_SECURITY_REGISTER&#160;&#160;&#160;0x77</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Read Security Register </p>
+
+<p>Read Security Register. </p>
 
 </div>
 </div>
@@ -133,7 +141,7 @@ Defines</h2></td></tr>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Sun Mar 20 2011 18:36:11 for arduino-dataflash by&#160;
+      <li class="footer">Generated on Sat Dec 31 2011 17:19:18 for arduino-dataflash by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>
@@ -143,7 +151,7 @@ Defines</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

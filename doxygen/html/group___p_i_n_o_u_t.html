@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>arduino-dataflash: Default pinout</title>
+<title>arduino-dataflash: Default pin connections.</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -35,7 +35,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -74,55 +76,61 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#define-members">Defines</a>  </div>
   <div class="headertitle">
-<h1>Default pinout</h1>  </div>
-<div class="ingroups"><a class="el" href="group___a_t45_d_b161_d.html">AT45DB161D module</a></div></div>
+<h1>Default pin connections.</h1>  </div>
+<div class="ingroups"><a class="el" href="group___a_t45_d_bxxx_d.html">Atmel DataFlash library for Arduino.</a></div></div>
 <div class="contents">
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_o_u_t.html#ga85796574b6060a678f2cfbc27bd90a04">SLAVESELECT</a>&#160;&#160;&#160;10</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_o_u_t.html#gab702106cf3b3e96750b6845ded4e0299">RESET</a>&#160;&#160;&#160;8</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_o_u_t.html#ga2c73b81722187c48d6186148091162fb">WP</a>&#160;&#160;&#160;7</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_o_u_t.html#ga6fe8edd9787bab98c17db48df46033cb">AT45_SS_PIN</a>&#160;&#160;&#160;10</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Chip select (CS)  <a href="#ga6fe8edd9787bab98c17db48df46033cb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_o_u_t.html#gab98fe0444f654878775a522313a0e50b">AT45_RESET_PIN</a>&#160;&#160;&#160;-1</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset (Reset)  <a href="#gab98fe0444f654878775a522313a0e50b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_o_u_t.html#gac4e3510f115ee550d584d9ac0798b50d">AT45_WP_PIN</a>&#160;&#160;&#160;-1</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protect (WP)  <a href="#gac4e3510f115ee550d584d9ac0798b50d"></a><br/></td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
-<a class="anchor" id="gab702106cf3b3e96750b6845ded4e0299"></a><!-- doxytag: member="at45db161d.h::RESET" ref="gab702106cf3b3e96750b6845ded4e0299" args="" -->
+<a class="anchor" id="gab98fe0444f654878775a522313a0e50b"></a><!-- doxytag: member="DataFlash.h::AT45_RESET_PIN" ref="gab98fe0444f654878775a522313a0e50b" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RESET&#160;&#160;&#160;8</td>
+          <td class="memname">#define AT45_RESET_PIN&#160;&#160;&#160;-1</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
 <p>Reset (Reset) </p>
 
 </div>
 </div>
-<a class="anchor" id="ga85796574b6060a678f2cfbc27bd90a04"></a><!-- doxytag: member="at45db161d.h::SLAVESELECT" ref="ga85796574b6060a678f2cfbc27bd90a04" args="" -->
+<a class="anchor" id="ga6fe8edd9787bab98c17db48df46033cb"></a><!-- doxytag: member="DataFlash.h::AT45_SS_PIN" ref="ga6fe8edd9787bab98c17db48df46033cb" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SLAVESELECT&#160;&#160;&#160;10</td>
+          <td class="memname">#define AT45_SS_PIN&#160;&#160;&#160;10</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
 <p>Chip select (CS) </p>
 
 </div>
 </div>
-<a class="anchor" id="ga2c73b81722187c48d6186148091162fb"></a><!-- doxytag: member="at45db161d.h::WP" ref="ga2c73b81722187c48d6186148091162fb" args="" -->
+<a class="anchor" id="gac4e3510f115ee550d584d9ac0798b50d"></a><!-- doxytag: member="DataFlash.h::AT45_WP_PIN" ref="gac4e3510f115ee550d584d9ac0798b50d" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define WP&#160;&#160;&#160;7</td>
+          <td class="memname">#define AT45_WP_PIN&#160;&#160;&#160;-1</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
 <p>Write protect (WP) </p>
 
 </div>
@@ -131,7 +139,7 @@ Defines</h2></td></tr>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Sun Mar 20 2011 18:36:11 for arduino-dataflash by&#160;
+      <li class="footer">Generated on Sat Dec 31 2011 17:19:18 for arduino-dataflash by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>
@@ -141,7 +149,7 @@ Defines</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

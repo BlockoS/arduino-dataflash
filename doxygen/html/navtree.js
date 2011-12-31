@@ -1,30 +1,92 @@
 var NAVTREE =
 [
   [ "arduino-dataflash", "index.html", [
+    [ "Related Pages", "pages.html", [
+      [ "Todo List", "todo.html", null ]
+    ] ],
     [ "Modules", "modules.html", [
-      [ "AT45DB161D module", "group___a_t45_d_b161_d.html", [
-        [ "erase command prevention", "group___chip.html", null ],
-        [ "Default pinout", "group___p_i_n_o_u_t.html", null ],
-        [ "Status register format", "group___s_t_a_t_u_s___r_e_g_i_s_t_e_r___f_o_r_m_a_t.html", null ]
+      [ "Atmel DataFlash library for Arduino.", "group___a_t45_d_bxxx_d.html", [
+        [ "Chip erase command prevention.", "group___c_h_i_p___e_r_a_s_e___p_r_e_v_e_n_t_i_o_n.html", null ],
+        [ "SPI transfer speed control.", "group___s_p_i__speed___control.html", null ],
+        [ "Default pin connections.", "group___p_i_n_o_u_t.html", null ],
+        [ "Status register format.", "group___s_t_a_t_u_s___r_e_g_i_s_t_e_r___f_o_r_m_a_t.html", null ],
+        [ "Special sectors ID.", "group___s_p_e_c_i_f_i_c___s_e_c_t_o_r_s.html", null ],
+        [ "DataFlash commands opcodes", "group___dataflash__commands.html", [
+          [ "Read commands", "group___read__commands.html", null ],
+          [ "Program and Erase commands", "group___program___erase__commands.html", null ],
+          [ "Protection and Security Commands", "group___protection_security___commands.html", null ],
+          [ "Additional Commands", "group___additional__commands.html", null ],
+          [ "Legacy Commands", "group___legacy__commands.html", null ]
+        ] ],
+        [ "DataFlash flash size.", "group___flash__size.html", [
+          [ "AT45DB011D", "group___a_t45_d_b011_d__size.html", null ],
+          [ "AT45DB021D", "group___a_t45_d_b021_d__size.html", null ],
+          [ "AT45DB041D", "group___a_t45_d_b041_d__size.html", null ],
+          [ "AT45DB081D", "group___a_t45_d_b081_d__size.html", null ],
+          [ "AT45DB161D", "group___a_t45_d_b161_d__size.html", null ],
+          [ "AT45DB321D", "group___a_t45_d_b321_d__size.html", null ],
+          [ "AT45DB642D", "group___a_t45_d_b642_d__size.html", null ]
+        ] ]
       ] ],
-      [ "AT45DB161D commands opcodes", "group___a_t45_d_b161_d__commands.html", [
-        [ "Read commands", "group___read__commands.html", null ],
-        [ "Program and Erase commands", "group___program___erase__commands.html", null ],
-        [ "Protection and Security Commands", "group___protection_security___commands.html", null ],
-        [ "Additional Commands", "group___additional__commands.html", null ],
-        [ "Legacy Commands", "group___legacy__commands.html", null ]
+      [ "Simple unit test framework.", "group___dummy_unit_test.html", [
+        [ "Values test.", "group___is_equal.html", null ],
+        [ "String conversion functions.", "group___stringify.html", null ]
       ] ]
     ] ],
     [ "Class List", "annotated.html", [
-      [ "ATD45DB161D", "class_a_t_d45_d_b161_d.html", null ],
-      [ "ATD45DB161D::ID", "struct_a_t_d45_d_b161_d_1_1_i_d.html", null ]
+      [ "DataFlash::AddressingInfos", "struct_data_flash_1_1_addressing_infos.html", null ],
+      [ "Dummy::CheckFailCallback< T >", "class_dummy_1_1_check_fail_callback.html", null ],
+      [ "Dummy::CheckFailCallbackInterface", "class_dummy_1_1_check_fail_callback_interface.html", null ],
+      [ "DataFlash", "class_data_flash.html", null ],
+      [ "Foo", "class_foo.html", null ],
+      [ "DataFlash::ID", "struct_data_flash_1_1_i_d.html", null ],
+      [ "Dummy::Infos", "class_dummy_1_1_infos.html", null ],
+      [ "Dummy::Result", "struct_dummy_1_1_result.html", null ],
+      [ "Dummy::Runner", "class_dummy_1_1_runner.html", null ],
+      [ "SimpleFailureNotifier", "class_simple_failure_notifier.html", null ],
+      [ "SimpleFixture", "class_simple_fixture.html", null ],
+      [ "Dummy::Test", "class_dummy_1_1_test.html", null ]
     ] ],
     [ "Class Index", "classes.html", null ],
+    [ "Class Hierarchy", "hierarchy.html", [
+      [ "DataFlash::AddressingInfos", "struct_data_flash_1_1_addressing_infos.html", null ],
+      [ "Dummy::CheckFailCallbackInterface", "class_dummy_1_1_check_fail_callback_interface.html", [
+        [ "Dummy::CheckFailCallback< T >", "class_dummy_1_1_check_fail_callback.html", null ],
+        [ "SimpleFailureNotifier", "class_simple_failure_notifier.html", null ]
+      ] ],
+      [ "DataFlash", "class_data_flash.html", null ],
+      [ "Foo", "class_foo.html", null ],
+      [ "DataFlash::ID", "struct_data_flash_1_1_i_d.html", null ],
+      [ "Dummy::Infos", "class_dummy_1_1_infos.html", null ],
+      [ "Dummy::Result", "struct_dummy_1_1_result.html", null ],
+      [ "Dummy::Runner", "class_dummy_1_1_runner.html", null ],
+      [ "SimpleFixture", "class_simple_fixture.html", null ],
+      [ "Dummy::Test", "class_dummy_1_1_test.html", null ]
+    ] ],
     [ "Class Members", "functions.html", null ],
+    [ "Namespace List", "namespaces.html", [
+      [ "Dummy", "namespace_dummy.html", null ]
+    ] ],
+    [ "Namespace Members", "namespacemembers.html", null ],
     [ "File List", "files.html", [
-      [ "at45db161d.cpp", "at45db161d_8cpp.html", null ],
-      [ "at45db161d.h", "at45db161d_8h.html", null ],
-      [ "at45db161d_commands.h", "at45db161d__commands_8h.html", null ]
+      [ "Callbacks.h", "_callbacks_8h.html", null ],
+      [ "DataFlash.cpp", "_data_flash_8cpp.html", null ],
+      [ "DataFlash.h", "_data_flash_8h.html", null ],
+      [ "DataFlashCommands.h", "_data_flash_commands_8h.html", null ],
+      [ "DataFlashInlines.h", "_data_flash_inlines_8h.html", null ],
+      [ "DataFlashSizes.h", "_data_flash_sizes_8h.html", null ],
+      [ "Dummy.h", "_dummy_8h.html", null ],
+      [ "example.cpp", "example_8cpp.html", null ],
+      [ "Infos.cpp", "_infos_8cpp.html", null ],
+      [ "Infos.h", "_infos_8h.html", null ],
+      [ "Macros.h", "_macros_8h.html", null ],
+      [ "Result.h", "_result_8h.html", null ],
+      [ "Runner.cpp", "_runner_8cpp.html", null ],
+      [ "Runner.h", "_runner_8h.html", null ],
+      [ "Test.cpp", "_test_8cpp.html", null ],
+      [ "Test.h", "_test_8h.html", null ],
+      [ "Utils.cpp", "_utils_8cpp.html", null ],
+      [ "Utils.h", "_utils_8h.html", null ]
     ] ],
     [ "File Members", "globals.html", null ]
   ] ]

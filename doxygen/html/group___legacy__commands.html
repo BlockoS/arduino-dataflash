@@ -35,7 +35,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -75,85 +77,95 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#define-members">Defines</a>  </div>
   <div class="headertitle">
 <h1>Legacy Commands</h1>  </div>
-<div class="ingroups"><a class="el" href="group___a_t45_d_b161_d__commands.html">AT45DB161D commands opcodes</a></div></div>
+<div class="ingroups"><a class="el" href="group___dataflash__commands.html">DataFlash commands opcodes</a></div></div>
 <div class="contents">
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#gab7ed5546f1673f97db7ba8d64deddfa7">AT45DB161D_BUFFER_1_READ_LEGACY</a>&#160;&#160;&#160;0X54</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga17a657184bc27de6017e5abe8b093a2c">AT45DB161D_BUFFER_2_READ_LEGACY</a>&#160;&#160;&#160;0x56</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#gae1230310dbc5084cb8860a3e8b5dafb6">AT45DB161D_PAGE_READ_LEGACY</a>&#160;&#160;&#160;0x52</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga0c688405fda09a22ac2662d6800bc99c">AT45DB161D_CONTINUOUS_READ_LEGACY</a>&#160;&#160;&#160;0x68</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga537d04e4fa10c6d5620008b6c32d7c7d">AT45DB161D_STATUS_REGISTER_READ_LEGACY</a>&#160;&#160;&#160;0x57</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga5db6b8c2b4dd8b1c99e1874fe37b92b0">DATAFLASH_BUFFER_1_READ_LEGACY</a>&#160;&#160;&#160;0X54</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer 1 Read.  <a href="#ga5db6b8c2b4dd8b1c99e1874fe37b92b0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga6bdee1bcb1e35f4f6454ee548e6c2793">DATAFLASH_BUFFER_2_READ_LEGACY</a>&#160;&#160;&#160;0x56</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer 2 Read.  <a href="#ga6bdee1bcb1e35f4f6454ee548e6c2793"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga42929b16099a7bc6d1a04be2f159b152">DATAFLASH_PAGE_READ_LEGACY</a>&#160;&#160;&#160;0x52</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Main Memory Page Read.  <a href="#ga42929b16099a7bc6d1a04be2f159b152"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga2360ffc652dc2afc593f457398174483">DATAFLASH_CONTINUOUS_READ_LEGACY</a>&#160;&#160;&#160;0x68</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Continuous Array Read.  <a href="#ga2360ffc652dc2afc593f457398174483"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___legacy__commands.html#ga80e035c85b508933db875351533b41c2">DATAFLASH_STATUS_REGISTER_READ_LEGACY</a>&#160;&#160;&#160;0x57</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Status Register Read.  <a href="#ga80e035c85b508933db875351533b41c2"></a><br/></td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
-<a class="anchor" id="gab7ed5546f1673f97db7ba8d64deddfa7"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_BUFFER_1_READ_LEGACY" ref="gab7ed5546f1673f97db7ba8d64deddfa7" args="" -->
+<a class="anchor" id="ga5db6b8c2b4dd8b1c99e1874fe37b92b0"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_BUFFER_1_READ_LEGACY" ref="ga5db6b8c2b4dd8b1c99e1874fe37b92b0" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_BUFFER_1_READ_LEGACY&#160;&#160;&#160;0X54</td>
+          <td class="memname">#define DATAFLASH_BUFFER_1_READ_LEGACY&#160;&#160;&#160;0X54</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Buffer 1 Read </p>
+
+<p>Buffer 1 Read. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga17a657184bc27de6017e5abe8b093a2c"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_BUFFER_2_READ_LEGACY" ref="ga17a657184bc27de6017e5abe8b093a2c" args="" -->
+<a class="anchor" id="ga6bdee1bcb1e35f4f6454ee548e6c2793"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_BUFFER_2_READ_LEGACY" ref="ga6bdee1bcb1e35f4f6454ee548e6c2793" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_BUFFER_2_READ_LEGACY&#160;&#160;&#160;0x56</td>
+          <td class="memname">#define DATAFLASH_BUFFER_2_READ_LEGACY&#160;&#160;&#160;0x56</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Buffer 2 Read </p>
+
+<p>Buffer 2 Read. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga0c688405fda09a22ac2662d6800bc99c"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_CONTINUOUS_READ_LEGACY" ref="ga0c688405fda09a22ac2662d6800bc99c" args="" -->
+<a class="anchor" id="ga2360ffc652dc2afc593f457398174483"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_CONTINUOUS_READ_LEGACY" ref="ga2360ffc652dc2afc593f457398174483" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_CONTINUOUS_READ_LEGACY&#160;&#160;&#160;0x68</td>
+          <td class="memname">#define DATAFLASH_CONTINUOUS_READ_LEGACY&#160;&#160;&#160;0x68</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Continuous Array Read </p>
+
+<p>Continuous Array Read. </p>
 
 </div>
 </div>
-<a class="anchor" id="gae1230310dbc5084cb8860a3e8b5dafb6"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_PAGE_READ_LEGACY" ref="gae1230310dbc5084cb8860a3e8b5dafb6" args="" -->
+<a class="anchor" id="ga42929b16099a7bc6d1a04be2f159b152"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_PAGE_READ_LEGACY" ref="ga42929b16099a7bc6d1a04be2f159b152" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_PAGE_READ_LEGACY&#160;&#160;&#160;0x52</td>
+          <td class="memname">#define DATAFLASH_PAGE_READ_LEGACY&#160;&#160;&#160;0x52</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Main Memory Page Read </p>
+
+<p>Main Memory Page Read. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga537d04e4fa10c6d5620008b6c32d7c7d"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_STATUS_REGISTER_READ_LEGACY" ref="ga537d04e4fa10c6d5620008b6c32d7c7d" args="" -->
+<a class="anchor" id="ga80e035c85b508933db875351533b41c2"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_STATUS_REGISTER_READ_LEGACY" ref="ga80e035c85b508933db875351533b41c2" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_STATUS_REGISTER_READ_LEGACY&#160;&#160;&#160;0x57</td>
+          <td class="memname">#define DATAFLASH_STATUS_REGISTER_READ_LEGACY&#160;&#160;&#160;0x57</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Status Register Read </p>
+
+<p>Status Register Read. </p>
 
 </div>
 </div>
@@ -161,7 +173,7 @@ Defines</h2></td></tr>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Sun Mar 20 2011 18:36:11 for arduino-dataflash by&#160;
+      <li class="footer">Generated on Sat Dec 31 2011 17:19:18 for arduino-dataflash by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>
@@ -171,7 +183,7 @@ Defines</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

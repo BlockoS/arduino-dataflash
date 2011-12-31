@@ -35,7 +35,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -75,160 +77,180 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#define-members">Defines</a>  </div>
   <div class="headertitle">
 <h1>Additional Commands</h1>  </div>
-<div class="ingroups"><a class="el" href="group___a_t45_d_b161_d__commands.html">AT45DB161D commands opcodes</a></div></div>
+<div class="ingroups"><a class="el" href="group___dataflash__commands.html">DataFlash commands opcodes</a></div></div>
 <div class="contents">
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga3a79a0584c7df3e40b16b15a51f02968">AT45DB161D_TRANSFER_PAGE_TO_BUFFER_1</a>&#160;&#160;&#160;0x53</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#gacb8995c1e456a6ed07dad6f05acf047c">AT45DB161D_TRANSFER_PAGE_TO_BUFFER_2</a>&#160;&#160;&#160;0x55</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#gabf3abdc12cac630e1471d3951d445093">AT45DB161D_COMPARE_PAGE_TO_BUFFER_1</a>&#160;&#160;&#160;0x60</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#gaf51c72ee630d952d991dcbaf3acc4883">AT45DB161D_COMPARE_PAGE_TO_BUFFER_2</a>&#160;&#160;&#160;0x61</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga2de4f79d49e9a550a73ef6caf50588d4">AT45DB161D_AUTO_PAGE_REWRITE_THROUGH_BUFFER_1</a>&#160;&#160;&#160;0x58</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga64340ed6edee0175e1edd8439eb0d0ba">AT45DB161D_AUTO_PAGE_REWRITE_THROUGH_BUFFER_2</a>&#160;&#160;&#160;0x59</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#gaf74c3b2d9520d6299796ca24285981a0">AT45DB161D_DEEP_POWER_DOWN</a>&#160;&#160;&#160;0xB9</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#gac72c12ce905efea9ce74d42620a2ee3f">AT45DB161D_RESUME_FROM_DEEP_POWER_DOWN</a>&#160;&#160;&#160;0xAB</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga8ac42c06d86afc61038946e80f280cd3">AT45DB161D_STATUS_REGISTER_READ</a>&#160;&#160;&#160;0xD7</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga5a8e6eda1729fd8f27b14d7f4bc8e099">AT45DB161D_READ_MANUFACTURER_AND_DEVICE_ID</a>&#160;&#160;&#160;0x9F</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga072b2ed5f6adae5010bcda8a97930114">DATAFLASH_TRANSFER_PAGE_TO_BUFFER_1</a>&#160;&#160;&#160;0x53</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Main Memory Page to Buffer 1 Transfer.  <a href="#ga072b2ed5f6adae5010bcda8a97930114"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga1cc7b1f3e8c973eab23c99a0950f3996">DATAFLASH_TRANSFER_PAGE_TO_BUFFER_2</a>&#160;&#160;&#160;0x55</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Main Memory Page to Buffer 2 Transfer.  <a href="#ga1cc7b1f3e8c973eab23c99a0950f3996"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga6d7a671a765be21ae68e23a6430a3754">DATAFLASH_COMPARE_PAGE_TO_BUFFER_1</a>&#160;&#160;&#160;0x60</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Main Memory Page to Buffer 1 Compare.  <a href="#ga6d7a671a765be21ae68e23a6430a3754"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga2e4926b1c7916cce3877b97ff7dc0dcd">DATAFLASH_COMPARE_PAGE_TO_BUFFER_2</a>&#160;&#160;&#160;0x61</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Main Memory Page to Buffer 2 Compare.  <a href="#ga2e4926b1c7916cce3877b97ff7dc0dcd"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#gacd8bb3e3ab4b13d05d4414070197de09">DATAFLASH_AUTO_PAGE_REWRITE_THROUGH_BUFFER_1</a>&#160;&#160;&#160;0x58</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto Page Rewrite through Buffer 1.  <a href="#gacd8bb3e3ab4b13d05d4414070197de09"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga965687f91fc84175273ce3451589a6d5">DATAFLASH_AUTO_PAGE_REWRITE_THROUGH_BUFFER_2</a>&#160;&#160;&#160;0x59</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto Page Rewrite through Buffer 2.  <a href="#ga965687f91fc84175273ce3451589a6d5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#gabff49eb1a17f3f664c812c8f3eb76427">DATAFLASH_DEEP_POWER_DOWN</a>&#160;&#160;&#160;0xB9</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Deep Power-down.  <a href="#gabff49eb1a17f3f664c812c8f3eb76427"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga342d778524c4c3101ddddd3c278d27f3">DATAFLASH_RESUME_FROM_DEEP_POWER_DOWN</a>&#160;&#160;&#160;0xAB</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Resume from Deep Power-down.  <a href="#ga342d778524c4c3101ddddd3c278d27f3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga8aa9aa06eb214eeab4c6ae156a1dd814">DATAFLASH_STATUS_REGISTER_READ</a>&#160;&#160;&#160;0xD7</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Status Register Read.  <a href="#ga8aa9aa06eb214eeab4c6ae156a1dd814"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___additional__commands.html#ga7be7b1774253cbafc772b14e32509c0e">DATAFLASH_READ_MANUFACTURER_AND_DEVICE_ID</a>&#160;&#160;&#160;0x9F</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Manufacturer and Device ID Read.  <a href="#ga7be7b1774253cbafc772b14e32509c0e"></a><br/></td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
-<a class="anchor" id="ga2de4f79d49e9a550a73ef6caf50588d4"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_AUTO_PAGE_REWRITE_THROUGH_BUFFER_1" ref="ga2de4f79d49e9a550a73ef6caf50588d4" args="" -->
+<a class="anchor" id="gacd8bb3e3ab4b13d05d4414070197de09"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_AUTO_PAGE_REWRITE_THROUGH_BUFFER_1" ref="gacd8bb3e3ab4b13d05d4414070197de09" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_AUTO_PAGE_REWRITE_THROUGH_BUFFER_1&#160;&#160;&#160;0x58</td>
+          <td class="memname">#define DATAFLASH_AUTO_PAGE_REWRITE_THROUGH_BUFFER_1&#160;&#160;&#160;0x58</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Auto Page Rewrite through Buffer 1 </p>
+
+<p>Auto Page Rewrite through Buffer 1. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga64340ed6edee0175e1edd8439eb0d0ba"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_AUTO_PAGE_REWRITE_THROUGH_BUFFER_2" ref="ga64340ed6edee0175e1edd8439eb0d0ba" args="" -->
+<a class="anchor" id="ga965687f91fc84175273ce3451589a6d5"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_AUTO_PAGE_REWRITE_THROUGH_BUFFER_2" ref="ga965687f91fc84175273ce3451589a6d5" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_AUTO_PAGE_REWRITE_THROUGH_BUFFER_2&#160;&#160;&#160;0x59</td>
+          <td class="memname">#define DATAFLASH_AUTO_PAGE_REWRITE_THROUGH_BUFFER_2&#160;&#160;&#160;0x59</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Auto Page Rewrite through Buffer 2 </p>
+
+<p>Auto Page Rewrite through Buffer 2. </p>
 
 </div>
 </div>
-<a class="anchor" id="gabf3abdc12cac630e1471d3951d445093"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_COMPARE_PAGE_TO_BUFFER_1" ref="gabf3abdc12cac630e1471d3951d445093" args="" -->
+<a class="anchor" id="ga6d7a671a765be21ae68e23a6430a3754"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_COMPARE_PAGE_TO_BUFFER_1" ref="ga6d7a671a765be21ae68e23a6430a3754" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_COMPARE_PAGE_TO_BUFFER_1&#160;&#160;&#160;0x60</td>
+          <td class="memname">#define DATAFLASH_COMPARE_PAGE_TO_BUFFER_1&#160;&#160;&#160;0x60</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Main Memory Page to Buffer 1 Compare </p>
+
+<p>Main Memory Page to Buffer 1 Compare. </p>
 
 </div>
 </div>
-<a class="anchor" id="gaf51c72ee630d952d991dcbaf3acc4883"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_COMPARE_PAGE_TO_BUFFER_2" ref="gaf51c72ee630d952d991dcbaf3acc4883" args="" -->
+<a class="anchor" id="ga2e4926b1c7916cce3877b97ff7dc0dcd"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_COMPARE_PAGE_TO_BUFFER_2" ref="ga2e4926b1c7916cce3877b97ff7dc0dcd" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_COMPARE_PAGE_TO_BUFFER_2&#160;&#160;&#160;0x61</td>
+          <td class="memname">#define DATAFLASH_COMPARE_PAGE_TO_BUFFER_2&#160;&#160;&#160;0x61</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Main Memory Page to Buffer 2 Compare </p>
+
+<p>Main Memory Page to Buffer 2 Compare. </p>
 
 </div>
 </div>
-<a class="anchor" id="gaf74c3b2d9520d6299796ca24285981a0"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_DEEP_POWER_DOWN" ref="gaf74c3b2d9520d6299796ca24285981a0" args="" -->
+<a class="anchor" id="gabff49eb1a17f3f664c812c8f3eb76427"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_DEEP_POWER_DOWN" ref="gabff49eb1a17f3f664c812c8f3eb76427" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_DEEP_POWER_DOWN&#160;&#160;&#160;0xB9</td>
+          <td class="memname">#define DATAFLASH_DEEP_POWER_DOWN&#160;&#160;&#160;0xB9</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Deep Power-down </p>
+
+<p>Deep Power-down. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga5a8e6eda1729fd8f27b14d7f4bc8e099"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_READ_MANUFACTURER_AND_DEVICE_ID" ref="ga5a8e6eda1729fd8f27b14d7f4bc8e099" args="" -->
+<a class="anchor" id="ga7be7b1774253cbafc772b14e32509c0e"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_READ_MANUFACTURER_AND_DEVICE_ID" ref="ga7be7b1774253cbafc772b14e32509c0e" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_READ_MANUFACTURER_AND_DEVICE_ID&#160;&#160;&#160;0x9F</td>
+          <td class="memname">#define DATAFLASH_READ_MANUFACTURER_AND_DEVICE_ID&#160;&#160;&#160;0x9F</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Manufacturer and Device ID Read </p>
+
+<p>Manufacturer and Device ID Read. </p>
 
 </div>
 </div>
-<a class="anchor" id="gac72c12ce905efea9ce74d42620a2ee3f"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_RESUME_FROM_DEEP_POWER_DOWN" ref="gac72c12ce905efea9ce74d42620a2ee3f" args="" -->
+<a class="anchor" id="ga342d778524c4c3101ddddd3c278d27f3"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_RESUME_FROM_DEEP_POWER_DOWN" ref="ga342d778524c4c3101ddddd3c278d27f3" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_RESUME_FROM_DEEP_POWER_DOWN&#160;&#160;&#160;0xAB</td>
+          <td class="memname">#define DATAFLASH_RESUME_FROM_DEEP_POWER_DOWN&#160;&#160;&#160;0xAB</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Resume from Deep Power-down </p>
+
+<p>Resume from Deep Power-down. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga8ac42c06d86afc61038946e80f280cd3"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_STATUS_REGISTER_READ" ref="ga8ac42c06d86afc61038946e80f280cd3" args="" -->
+<a class="anchor" id="ga8aa9aa06eb214eeab4c6ae156a1dd814"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_STATUS_REGISTER_READ" ref="ga8aa9aa06eb214eeab4c6ae156a1dd814" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_STATUS_REGISTER_READ&#160;&#160;&#160;0xD7</td>
+          <td class="memname">#define DATAFLASH_STATUS_REGISTER_READ&#160;&#160;&#160;0xD7</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Status Register Read </p>
+
+<p>Status Register Read. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga3a79a0584c7df3e40b16b15a51f02968"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_TRANSFER_PAGE_TO_BUFFER_1" ref="ga3a79a0584c7df3e40b16b15a51f02968" args="" -->
+<a class="anchor" id="ga072b2ed5f6adae5010bcda8a97930114"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_TRANSFER_PAGE_TO_BUFFER_1" ref="ga072b2ed5f6adae5010bcda8a97930114" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_TRANSFER_PAGE_TO_BUFFER_1&#160;&#160;&#160;0x53</td>
+          <td class="memname">#define DATAFLASH_TRANSFER_PAGE_TO_BUFFER_1&#160;&#160;&#160;0x53</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Main Memory Page to Buffer 1 Transfer </p>
+
+<p>Main Memory Page to Buffer 1 Transfer. </p>
 
 </div>
 </div>
-<a class="anchor" id="gacb8995c1e456a6ed07dad6f05acf047c"></a><!-- doxytag: member="at45db161d_commands.h::AT45DB161D_TRANSFER_PAGE_TO_BUFFER_2" ref="gacb8995c1e456a6ed07dad6f05acf047c" args="" -->
+<a class="anchor" id="ga1cc7b1f3e8c973eab23c99a0950f3996"></a><!-- doxytag: member="DataFlashCommands.h::DATAFLASH_TRANSFER_PAGE_TO_BUFFER_2" ref="ga1cc7b1f3e8c973eab23c99a0950f3996" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AT45DB161D_TRANSFER_PAGE_TO_BUFFER_2&#160;&#160;&#160;0x55</td>
+          <td class="memname">#define DATAFLASH_TRANSFER_PAGE_TO_BUFFER_2&#160;&#160;&#160;0x55</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Main Memory Page to Buffer 2 Transfer </p>
+
+<p>Main Memory Page to Buffer 2 Transfer. </p>
 
 </div>
 </div>
@@ -236,7 +258,7 @@ Defines</h2></td></tr>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Sun Mar 20 2011 18:36:11 for arduino-dataflash by&#160;
+      <li class="footer">Generated on Sat Dec 31 2011 17:19:18 for arduino-dataflash by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>
@@ -246,7 +268,7 @@ Defines</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
