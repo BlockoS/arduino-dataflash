@@ -1,75 +1,59 @@
-/*
-Arduino Library to access Atmel DataFlash flash memory ICs with SPI interface.
-
-History:
-
-Version 1.x, 2010-2011
-
-Released as at45db161d by ...
-[Add / change.]
-
-Version 2.0, 30 Aug 2011.
-
-Based on the library by Vincent Cruz, dalek branch, of 25 Aug 2011.
-http://github.com/BlockoS/arduino-dataflash/tarball/dalek
-Substantially modified and improved by Volker Kuhlmann.
-
- - Allow a quick .begin() / .end() to switch the SPI interface between
-   multiple SPI devices.
- - Efficiency improvements.
- - Re-arrange the mechanism to wait for the chip to become ready such that
-   waiting only happens when necessary. This allows interleaved writing - fill
-   up one buffer with new data while the other buffer is programmed to the 
-   flash memory array. The downside is the the user now has to wait sometimes
-   too, depending on the state of the flash chip and the user program.
- - Several improvements resulted in incompatible changes to the function API.
-   This shouldn't matter because the DataFlash library is in the process of
-   evolving as an improvement of the at45db161d library and handles all the
-   AT45DBxxxD flash ICs instead of just the AT45DB161D.
-
-
-Copyright (C) 2010-2011 by Vincent Cruz.
-cruz.vincent@gmail.com
-
-Copyright (C) 2011 by Volker Kuhlmann.
-http://volker.top.geek.nz/contact.html
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/**
- * @file dataflash.h
+/**************************************************************************//**
+ * @file DataFlash.h
  * @brief AT45DBxxxD Atmel DataFlash library for Arduino.
- **/
+ *
+ * @par Copyright: 
+ * - Copyright (C) 2010-2011 by Vincent Cruz.
+ * - Copyright (C) 2011 by Volker Kuhlmann. @n
+ * All rights reserved.
+ *
+ * @authors
+ * - Vincent Cruz @n
+ *   cruz.vincent@gmail.com
+ * - Volker Kuhlmann @n
+ *   http://volker.top.geek.nz/contact.html
+ *
+ * @par Description:
+ * Please refer to @ref DataFlash.cpp for more informations.
+ *
+ * @par History:
+ * - Version 1.x, 2010-2011.
+ * - Version 2.0, 30 Aug 2011.
+ * - Version 2.2, 29 Dec 2011.
+ *
+ * @par Licence: GPLv3
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. @n
+ * @n
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details. @n
+ * @n
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+
 #ifndef DATAFLASH_H_
 #define DATAFLASH_H_
 
 #include <inttypes.h>
-#include <DataFlashSizes.h>
+#include "DataFlashSizes.h"
 #include <SPI.h>
 
 /**
- * @defgroup AT45DBxxxD Atmel DataFlash library for Arduino.
+ * @addtogroup AT45DBxxxD
  * @{
  **/
 
 /**
- * @defgroup Chip erase command prevention.
+ * @defgroup CHIP_ERASE_PREVENTION Chip erase command prevention.
  * @note Will be removed once chip erase is re-implemented.
- * @comment Datasheets are missing errata, but see AT45DB321D. Basically the
- * @comment silicon is buggy and Atmel suggests to use block erase instead,
- * @comment giving rise to the suspicion that sector erase doesn't work either.
+ * Datasheets are missing errata, but see AT45DB321D. Basically the
+ * silicon is buggy and Atmel suggests to use block erase instead,
+ * giving rise to the suspicion that sector erase doesn't work either.
  * @{
  **/
 #ifdef AT45_CHIP_ERASE_ENABLED
@@ -80,13 +64,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
 /**
- * @defgroup Provide SPI transfer speed control.
- * @comment DataFlash supports low and high speed transfers. However the low
- * @comment speed transfers are more than 3x the speed of what an Arduino
- * @comment with ATmega 328P or 1280 can provide, so this makes no sense at
- * @comment all with that hardware. 
- * @comment Leaving in, in case it's useful for other hardware. Tested code.
- * @comment Dropping this saves 86 bytes.
+ * @defgroup SPI_speed_Control SPI transfer speed control.
+ * DataFlash supports low and high speed transfers. However the low
+ * speed transfers are more than 3x the speed of what an Arduino
+ * with ATmega 328P or 1280 can provide, so this makes no sense at
+ * all with that hardware. 
+ * Leaving in, in case it's useful for other hardware. Tested code.
+ * Dropping this saves 86 bytes.
  * @{
  **/
 #ifdef AT45_USE_SPI_SPEED_CONTROL
@@ -243,7 +227,7 @@ class DataFlash
          * @param resetPin Reset pin, optional (default none).
          * @param wpPin Write protect pin, optional (default none).
          * **/
-        void setup(uint8_t csPin, uint8_t resetPin=AT45_RESET_PIN, uint8_t wpPin=AT45_WP_PIN);
+        void setup(int8_t csPin, int8_t resetPin=AT45_RESET_PIN, int8_t wpPin=AT45_WP_PIN);
 
         /**
          * Initialise SPI interface for use with the DataFlash,
@@ -483,11 +467,11 @@ class DataFlash
         inline void readWrite();
 
         /** Get chip Select (CS) pin **/
-        inline uint8_t chipSelectPin  () const;
+        inline int8_t chipSelectPin  () const;
         /** Get reset (RESET) pin **/
-        inline uint8_t resetPin       () const;
+        inline int8_t resetPin       () const;
         /** Get write protect (WP) pin **/
-        inline uint8_t writeProtectPin() const;
+        inline int8_t writeProtectPin() const;
 
     private:
         /**
@@ -514,9 +498,9 @@ class DataFlash
 
         static const AddressingInfos m_infos; /**< @see AddressingInfos **/
         
-        uint8_t m_chipSelectPin;    /**< Chip select pin (CS). **/
-        uint8_t m_resetPin;         /**< Reset pin (RESET). **/
-        uint8_t m_writeProtectPin;  /**< Write protect pin (WP). **/
+        int8_t m_chipSelectPin;    /**< Chip select pin (CS). **/
+        int8_t m_resetPin;         /**< Reset pin (RESET). **/
+        int8_t m_writeProtectPin;  /**< Write protect pin (WP). **/
 
         uint8_t m_SPCR;             /**< SPI register backup. **/
         uint8_t m_SPSR;             /**< SPI register backup. **/
@@ -524,7 +508,7 @@ class DataFlash
         uint8_t m_bufferSize;       /**< Size of the buffer address bits. **/
         uint8_t m_pageSize;         /**< Size of the page address bits. **/
         uint8_t m_sectorSize;       /**< Size of the sector address bits. **/
-        
+
         enum erasemode m_erase;     /**< Erase mode - auto or manual. **/
 
 #ifdef AT45_USE_SPI_SPEED_CONTROL

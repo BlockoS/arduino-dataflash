@@ -1,31 +1,47 @@
-/*
-********************************************************************************
- DataFlashInlines.h
+/**************************************************************************//**
+ * @file DataFlashInlines.h
+ * @brief File containing definitions for inline methods and functions for the
+ * Atmel DataFlash Arduino library.
+ *
+ * @par Copyright: 
+ * - Copyright (C) 2010-2011 by Vincent Cruz.
+ * - Copyright (C) 2011 by Volker Kuhlmann. @n
+ * All rights reserved.
+ *
+ * @authors
+ * - Vincent Cruz @n
+ *   cruz.vincent@gmail.com
+ * - Volker Kuhlmann @n
+ *   http://volker.top.geek.nz/contact.html
+ *
+ * @par Description:
+ * Please refer to @ref DataFlash.cpp for more informations.
+ *
+ * @par History:
+ * - Version 1.x, 2010-2011.
+ * - Version 2.0, 30 Aug 2011.
+ * - Version 2.2, 29 Dec 2011.
+ *
+ * @par Licence: GPLv3
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. @n
+ * @n
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details. @n
+ * @n
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
  
- File containing definitions for inline methods and functions for the
- Atmel DataFlash Arduino library.
+/**
+ * @addtogroup AT45DBxxxD
+ * @{
+ **/
  
- Copyright (C) 2011 by Vincent Cruz.
- cruz.vincent@gmail.com 
- 
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
- 
-1.0  04 Sep 2011   Created.
-********************************************************************************
-*/
-
 /**
  * Enable device with chipselect.
  **/
@@ -39,7 +55,8 @@ inline void DataFlash::enable()
  **/
 inline void DataFlash::disable()
 {
-    digitalWrite(m_chipSelectPin, HIGH);
+    if (m_writeProtectPin < -1)
+        digitalWrite(m_chipSelectPin, HIGH);
 }
 
 /**
@@ -47,7 +64,8 @@ inline void DataFlash::disable()
  **/
 inline void DataFlash::writeProtect()
 {
-    digitalWrite(m_writeProtectPin, LOW);
+    if (m_writeProtectPin < -1)
+        digitalWrite(m_writeProtectPin, LOW);
 }
 
 /**
@@ -59,19 +77,19 @@ inline void DataFlash::readWrite()
 }
 
 /** Get chip Select (CS) pin **/
-inline uint8_t DataFlash::chipSelectPin  () const
+inline int8_t DataFlash::chipSelectPin  () const
 {
     return m_chipSelectPin;
 }
 
 /** Get reset (RESET) pin **/
-inline uint8_t DataFlash::resetPin       () const
+inline int8_t DataFlash::resetPin       () const
 {
     return m_resetPin;
 }
 
 /** Get write protect (WP) pin **/
-inline uint8_t DataFlash::writeProtectPin() const
+inline int8_t DataFlash::writeProtectPin() const
 {
     return m_writeProtectPin;
 }
@@ -101,3 +119,4 @@ inline void DataFlash::endAndWait()
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 }
+/** @} **/

@@ -1,59 +1,73 @@
-/*
-Arduino Library to access Atmel DataFlash flash memory ICs with SPI interface.
+/**************************************************************************//**
+ * @file DataFlash.cpp
+ * @brief AT45DBxxxD Atmel DataFlash library for Arduino.
+ *
+ * @par Copyright: 
+ * - Copyright (C) 2010-2011 by Vincent Cruz.
+ * - Copyright (C) 2011 by Volker Kuhlmann. @n
+ * All rights reserved.
+ *
+ * @authors
+ * - Vincent Cruz @n
+ *   cruz.vincent@gmail.com
+ * - Volker Kuhlmann @n
+ *   http://volker.top.geek.nz/contact.html
+ *
+ * @par Description:
+ * Please refer to @ref DataFlash.cpp for more informations.
+ *
+ * @par History:
+ * - Version 1.x, 2010-2011.
+ *    - Released as at45db161d by Vincent Cruz.
+ * - Version 2.0, 30 Aug 2011.
+ *    - Based on the library by Vincent Cruz, dalek branch, of 25 Aug 2011.
+ *      http://github.com/BlockoS/arduino-dataflash/tarball/dalek
+ *      Substantially modified and improved by Volker Kuhlmann.
+ *    - Allow a quick .begin() / .end() to switch the SPI interface between
+ *      multiple SPI devices.
+ *    - Efficiency improvements.
+ *    - Re-arrange the mechanism to wait for the chip to become ready such that
+ *      waiting only happens when necessary. This allows interleaved writing - fill
+ *      up one buffer with new data while the other buffer is programmed to the 
+ *      flash memory array. The downside is the the user now has to wait sometimes
+ *      too, depending on the state of the flash chip and the user program.
+ *    - Several improvements resulted in incompatible changes to the function API.
+ *      This shouldn't matter because the DataFlash library is in the process of
+ *      evolving as an improvement of the at45db161d library and handles all the
+ *      AT45DBxxxD flash ICs instead of just the AT45DB161D.
+ * - Version 2.2, 29 Dec 2011.
+ *    - Made to compile under Arduino 1.0 as well as 0.22.
+ *    - Removed 4 compiler warnings.
+ *    - Fixed a serious bug where accessing any pin set to -1 can cause random memory
+ *      corruption (the Arduino pin functions like digitalWrite() have no range
+ *      checking).
+ * 
+ * @par Licence: GPLv3
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. @n
+ * @n
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details. @n
+ * @n
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
 
-History:
-
-Version 1.x, 2010-2011
-
-Released as at45db161d by ...
-[Add / change.]
-
-
-Version 2.0, 30 Aug 2011.
-
-Based on the library by Vincent Cruz, dalek branch, of 25 Aug 2011.
-http://github.com/BlockoS/arduino-dataflash/tarball/dalek
-Substantially modified and improved by Volker Kuhlmann.
-
- - Allow a quick .begin() / .end() to switch the SPI interface between
-   multiple SPI devices.
- - Efficiency improvements.
- - Re-arrange the mechanism to wait for the chip to become ready such that
-   waiting only happens when necessary. This allows interleaved writing - fill
-   up one buffer with new data while the other buffer is programmed to the 
-   flash memory array. The downside is the the user now has to wait sometimes
-   too, depending on the state of the flash chip and the user program.
- - Several improvements resulted in incompatible changes to the function API.
-   This shouldn't matter because the DataFlash library is in the process of
-   evolving as an improvement of the at45db161d library and handles all the
-   AT45DBxxxD flash ICs instead of just the AT45DB161D.
-
-
-Copyright (C) 2010-2011 by Vincent Cruz.
-cruz.vincent@gmail.com
-
-Copyright (C) 2011 by Volker Kuhlmann.
-http://volker.top.geek.nz/contact.html
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+#if ARDUINO >= 100
+#include <Arduino.h>
+#else
+#include <WProgram.h>
+#endif
 
 #include "DataFlash.h"
 #include "DataFlashCommands.h"
 
 /**
- * @defgroup AT45DBxxxD Atmel DataFlash library for arduino.
+ * @defgroup AT45DBxxxD Atmel DataFlash library for Arduino.
  * @{
  **/
  
@@ -91,20 +105,23 @@ DataFlash::~DataFlash()
  * @param resetPin Reset pin, optional (default none).
  * @param wpPin Write protect pin, optional (default none).
  * **/
-void DataFlash::setup(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
+void DataFlash::setup(int8_t csPin, int8_t resetPin, int8_t wpPin)
 {
-    uint8_t clr;
-
     m_chipSelectPin   = csPin;
     m_resetPin        = resetPin;
     m_writeProtectPin = wpPin;
 
-    pinMode(m_chipSelectPin,   OUTPUT);
-    pinMode(m_resetPin,        OUTPUT);
-    pinMode(m_writeProtectPin, OUTPUT);
-    
-    digitalWrite(m_resetPin,        HIGH); // set inactive
-    digitalWrite(m_writeProtectPin, HIGH); // set inactive
+    pinMode(m_chipSelectPin, OUTPUT);
+    if (m_resetPin < -1)
+    {
+        pinMode(m_resetPin, OUTPUT);
+        digitalWrite(m_resetPin, HIGH); // set inactive
+    }
+    if (m_writeProtectPin < -1)
+    {
+        pinMode(m_writeProtectPin, OUTPUT);
+        digitalWrite(m_writeProtectPin, HIGH); // set inactive
+    }
 
     m_erase = ERASE_AUTO;
 #ifdef AT45_USE_SPI_SPEED_CONTROL
@@ -112,9 +129,13 @@ void DataFlash::setup(uint8_t csPin, uint8_t resetPin, uint8_t wpPin)
 #endif
         
     /* Clear pending SPI interrupts */
+#ifdef __AVR__
+    uint8_t clr;
     clr = SPSR;
     clr = SPDR;
-    
+    (void) clr; // Prevent variable set but unused warning. No code generated.
+#endif
+
     /* Setup SPI */
     SPI.setDataMode(SPI_MODE3);
     SPI.setBitOrder(MSBFIRST);
@@ -226,7 +247,7 @@ uint8_t DataFlash::isReady()
 void DataFlash::waitUntilReady()
 {
     /* Wait for the end of the transfer taking place. */
-    while(!isReady());
+    while(!isReady()) {};
 }
 
 /** 
@@ -258,7 +279,6 @@ uint8_t DataFlash::status()
  **/
 void DataFlash::readID(struct DataFlash::ID &id)
 {
-    
     reEnable();     // Reset command decoder.
   
     /* Send status read command */
@@ -577,11 +597,26 @@ void DataFlash::sectorErase(int8_t sector)
  * Erase the entire chip memory. Sectors protected or locked down will
  * not be erased.
  * @warning UNTESTED
- * @warning MAY DAMAGE CHIP, THEREFORE NOT AVAILABLE.
- *          READ DATASHEET FOR DETAILS.
  **/
 void DataFlash::chipErase()
 {
+    uint8_t stat = status();
+    uint8_t deviceIndex = ((stat & 0x38) >> 3) - 1; /// \todo Store this at init
+
+    uint8_t sectorCount = 1 << m_infos.sectorSize[deviceIndex];
+    
+    sectorErase(AT45_SECTOR_0A);
+    sectorErase(AT45_SECTOR_0B);
+    for(uint8_t i=1; i<sectorCount; i++)
+    {
+        sectorErase(i);
+    }
+    
+#if 0
+    /* DO NOT USE THIS CODE!       */
+    /* MAY DAMAGE CHIP.            */
+    /* READ DATASHEET FOR DETAILS. */
+ 
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 
@@ -596,6 +631,9 @@ void DataFlash::chipErase()
     /* Start chip erase.
     The chip remains busy until this operation finishes. */
     disable();
+#else
+    (void) sector;
+#endif
 }
 #endif // AT45_CHIP_ERASE_ENABLED
 
@@ -700,25 +738,29 @@ void DataFlash::resumeFromDeepPowerDown()
 
 /**
  * Reset device via the reset pin.
+ * If no reset pint was specified (with begin()), this does nothing.
  **/
 void DataFlash::hardReset()
 {
-    digitalWrite(m_resetPin, LOW);
+    if (m_resetPin < -1)
+    {
+        digitalWrite(m_resetPin, LOW);
 
-    /* The reset pin should stay low for at least 10us (table 18.4). */
-    delayMicroseconds(10);
-    
-    /* According to the Dataflash spec (21.6 Reset Timing),
-     * the CS pin should be in high state before RESET
-     * is deasserted (ie HIGH). */
-    disable();
-    /* Just to be sure that the high state is reached */
-    delayMicroseconds(1);
+        /* The reset pin should stay low for at least 10us (table 18.4). */
+        delayMicroseconds(10);
         
-    digitalWrite(m_resetPin, HIGH);
-    
-    /* Reset recovery time = 1us */
-    delayMicroseconds(1);
+        /* According to the Dataflash spec (21.6 Reset Timing),
+         * the CS pin should be in high state before RESET
+         * is deasserted (ie HIGH). */
+        disable();
+        /* Just to be sure that the high state is reached */
+        delayMicroseconds(1);
+            
+        digitalWrite(m_resetPin, HIGH);
+        
+        /* Reset recovery time = 1us */
+        delayMicroseconds(1);
+    }
 }
 
 /**
