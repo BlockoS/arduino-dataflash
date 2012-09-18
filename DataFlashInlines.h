@@ -111,7 +111,7 @@ inline uint8_t DataFlash::pageToLoU8(uint16_t page) const
 }
 
 /**
- * Same as @see waitUntilReady
+ * Same as waitUntilReady
  * @todo This method will be removed.
  **/
 inline void DataFlash::endAndWait()

@@ -44,7 +44,8 @@
  **/
  
 /**
- * @defgroup Dataflash_commands DataFlash commands opcodes
+ * @defgroup Dataflash_commands Dataflash commands opcodes
+ * Dataflash command opcode list.
  * @{
  **/
 

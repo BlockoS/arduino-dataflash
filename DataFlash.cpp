@@ -1,6 +1,6 @@
 /**************************************************************************//**
  * @file DataFlash.cpp
- * @brief AT45DBxxxD Atmel DataFlash library for Arduino.
+ * @brief AT45DBxxxD Atmel Dataflash library for Arduino.
  *
  * @par Copyright: 
  * - Copyright (C) 2010-2011 by Vincent Cruz.
@@ -32,7 +32,7 @@
  *      flash memory array. The downside is the the user now has to wait sometimes
  *      too, depending on the state of the flash chip and the user program.
  *    - Several improvements resulted in incompatible changes to the function API.
- *      This shouldn't matter because the DataFlash library is in the process of
+ *      This shouldn't matter because the %Dataflash library is in the process of
  *      evolving as an improvement of the at45db161d library and handles all the
  *      AT45DBxxxD flash ICs instead of just the AT45DB161D.
  * - Version 2.2, 29 Dec 2011.
@@ -67,7 +67,13 @@
 #include "DataFlashCommands.h"
 
 /**
- * @defgroup AT45DBxxxD Atmel DataFlash library for Arduino.
+ * @mainpage Atmel Dataflash library for Arduino.
+ *
+ * http://www.atmel.com/products/memories/sflash/dataflash.aspx
+ **/
+
+/**
+ * @defgroup AT45DBxxxD Atmel Dataflash library for Arduino.
  * @{
  **/
  
@@ -159,7 +165,7 @@ void DataFlash::setup(int8_t csPin, int8_t resetPin, int8_t wpPin)
 }
 
 /** 
- * Initialise SPI interface for use with the DataFlash,
+ * Initialise SPI interface for use with the %Dataflash,
  * allowing shared use with other SPI devices (which must however use
  * a different chipselect pin).
  * **/
@@ -185,7 +191,7 @@ void DataFlash::end()
 }
 
 /**
- * Disable (deselect) DataFlash, then enable (select) it again.
+ * Disable (deselect) %Dataflash, then enable (select) it again.
  **/
 void DataFlash::reEnable()
 {

@@ -1,6 +1,6 @@
 /**************************************************************************//**
  * @file DataFlash.h
- * @brief AT45DBxxxD Atmel DataFlash library for Arduino.
+ * @brief AT45DBxxxD Atmel Dataflash library for Arduino.
  *
  * @par Copyright: 
  * - Copyright (C) 2010-2011 by Vincent Cruz.
@@ -49,7 +49,7 @@
  **/
 
 /**
- * @defgroup CHIP_ERASE_PREVENTION Chip erase command prevention.
+ * @defgroup AT45_CHIP_ERASE_ENABLED Chip erase command prevention.
  * @note Will be removed once chip erase is re-implemented.
  * Datasheets are missing errata, but see AT45DB321D. Basically the
  * silicon is buggy and Atmel suggests to use block erase instead,
@@ -64,8 +64,9 @@
  **/
 
 /**
- * @defgroup SPI_speed_Control SPI transfer speed control.
- * DataFlash supports low and high speed transfers. However the low
+ * @defgroup AT45_USE_SPI_SPEED_CONTROL SPI transfer speed control.
+ * @warning This feature is experimental. Use it at your own risk!
+ * %Dataflash supports low and high speed transfers. However the low
  * speed transfers are more than 3x the speed of what an Arduino
  * with ATmega 328P or 1280 can provide, so this makes no sense at
  * all with that hardware. 
@@ -82,6 +83,9 @@
 
 /**
  * @defgroup PINOUT Default pin connections.
+ * Default pin values for Chip Select (CS), Reset (RS) and
+ * Write Protec (WP). 
+ * Reset and Write Protect pins are not used by default.
  * @{
  **/
 /** Chip select (CS) **/
@@ -96,6 +100,8 @@
 
 /**
  * @defgroup STATUS_REGISTER_FORMAT Status register format.
+ * The status register can be used to determine device state
+ * (ready/busy) or to retrieve the result of an operation.
  * @{
  **/
 /**
@@ -123,14 +129,14 @@
 /**
  * Bit 0 indicates whether the page size of the main memory array is
  * configured for "power of 2" binary page size (512 bytes) (bit=1) or
- * standard DataFlash page size (528 bytes) (bit=0).
+ * standard %Dataflash page size (528 bytes) (bit=0).
  **/
 #define AT45_PAGESIZE_PWR2 0x01
 /**
  * Bits 5, 4, 3 and 2 indicates the device density. The decimal value
  * of these four binary bits does not equate to the device density; the
  * four bits represent a combinational code relating to differing
- * densities of DataFlash devices. The device density is not the same
+ * densities of %Dataflash devices. The device density is not the same
  * as the density code indicated in the JEDEC device ID information.
  * The device density is provided only for backward compatibility.
  **/
@@ -142,17 +148,18 @@
  /**
  * @defgroup SPECIFIC_SECTORS Special sectors ID.
  * The following list gives the number of pages per sector (P) for the AT45 family:
- *   AT45DB011D 128 
- *   AT45DB021D 128
- *   AT45DB041D 256
- *   AT45DB081D 256
- *   AT45DB161D 256
- *   AT45DB321D 128
- *   AT45DB642D 256
- * On every DataFlash, the first 8 pages belongs to the sectod 0a. It's followed by 
- * sector 0b which holds only (P-8) pages (248 on an AT45DB161D). Then comes N-1 
+ *   - AT45DB011D 128 
+ *   - AT45DB021D 128
+ *   - AT45DB041D 256
+ *   - AT45DB081D 256
+ *   - AT45DB161D 256
+ *   - AT45DB321D 128
+ *   - AT45DB642D 256
+ *
+ * On every %Dataflash, the first 8 pages belongs to the sectod 0a. It's followed 
+ * by sector 0b which holds only (P-8) pages (248 on an AT45DB161D). Then comes N-1 
  * (N is the number of sectors) sectors of size P numbered from 1 to N-1 (included).
- * @see chapter titled "Memory Array" in the corresponding DataFlash datasheet.
+ * @see chapter titled "Memory Array" in the corresponding %Dataflash datasheet.
  * @{
  **/
 /**
@@ -169,7 +176,7 @@
  
  
 /**
- * AT45DBxxxD Atmel DataFlash device.
+ * AT45DBxxxD Atmel %Dataflash device.
  **/
 class DataFlash
 {
@@ -177,7 +184,7 @@ class DataFlash
         /**
          * @brief ID structure.
          * This structure contains information about the
-         * DataFlash chip being used.
+         * %Dataflash chip being used.
          **/
         struct ID
         {
@@ -200,7 +207,7 @@ class DataFlash
         /** 
          * @brief IO speed.
          * The max SPI SCK frequency an ATmega 328P or 1280 can generate is
-         * 10MHz. The limit for low-speed SCK for AT45DBxxxD DataFlash is 33MHz
+         * 10MHz. The limit for low-speed SCK for AT45DBxxxD %Dataflash is 33MHz
          * (66MHz for high-speed). Supporting high-speed for Arduino is a waste of
          * time...
          **/
@@ -230,7 +237,7 @@ class DataFlash
         void setup(int8_t csPin, int8_t resetPin=AT45_RESET_PIN, int8_t wpPin=AT45_WP_PIN);
 
         /**
-         * Initialise SPI interface for use with the DataFlash,
+         * Initialise SPI interface for use with the %Dataflash,
          * allowing shared use with other SPI devices (which must however use
          * a different chip select pin).
          * **/
@@ -242,17 +249,17 @@ class DataFlash
         void end();
 
         /**
-         * Enable (select) DataFlash.
+         * Enable (select) %Dataflash.
          **/
         inline void enable();
 
         /**
-         * Disable (deselect) DataFlash.
+         * Disable (deselect) %Dataflash.
          **/
         inline void disable();
 
         /**
-         * Disable (deselect) DataFlash, then enable (select) it again.
+         * Disable (deselect) %Dataflash, then enable (select) it again.
          **/
         void reEnable();
 
@@ -292,13 +299,13 @@ class DataFlash
         /**
          * @brief Wait until the chip is ready.
          * Perform a low-to-high transition on the CS pin and then poll
-         * the status register until the dataflash is ready for the next
+         * the status register until the %Dataflash is ready for the next
          * operation.
          */
         void waitUntilReady();
         
         /**
-         * Same as @see waitUntilReady
+         * Same as waitUntilReady
          **/
         inline void endAndWait();
         
@@ -486,7 +493,7 @@ class DataFlash
 
     private:
         /**
-         * Dataflash read/write addressing infos.
+         * %Dataflash read/write addressing infos.
          * @warning Power of 2 addressing is not supported for the moment!
          **/
         struct AddressingInfos

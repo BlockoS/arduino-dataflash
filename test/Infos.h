@@ -39,10 +39,6 @@
  **/
 namespace Dummy
 {
-    /** 
-     * @def MAX_VALUE_STRING_SIZE 
-     * @todo
-     **/
     #define MAX_VALUE_STRING_SIZE 16
 
     /** General informations. **/
