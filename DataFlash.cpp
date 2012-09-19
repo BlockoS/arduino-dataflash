@@ -21,7 +21,6 @@
  *    - Released as at45db161d by Vincent Cruz.
  * - Version 2.0, 30 Aug 2011.
  *    - Based on the library by Vincent Cruz, dalek branch, of 25 Aug 2011.
- *      http://github.com/BlockoS/arduino-dataflash/tarball/dalek
  *      Substantially modified and improved by Volker Kuhlmann.
  *    - Allow a quick .begin() / .end() to switch the SPI interface between
  *      multiple SPI devices.
@@ -118,12 +117,12 @@ void DataFlash::setup(int8_t csPin, int8_t resetPin, int8_t wpPin)
     m_writeProtectPin = wpPin;
 
     pinMode(m_chipSelectPin, OUTPUT);
-    if (m_resetPin < -1)
+    if (m_resetPin >= 0)
     {
         pinMode(m_resetPin, OUTPUT);
         digitalWrite(m_resetPin, HIGH); // set inactive
     }
-    if (m_writeProtectPin < -1)
+    if (m_writeProtectPin >= 0)
     {
         pinMode(m_writeProtectPin, OUTPUT);
         digitalWrite(m_writeProtectPin, HIGH); // set inactive
@@ -748,7 +747,7 @@ void DataFlash::resumeFromDeepPowerDown()
  **/
 void DataFlash::hardReset()
 {
-    if (m_resetPin < -1)
+    if (m_resetPin >= 0)
     {
         digitalWrite(m_resetPin, LOW);
 

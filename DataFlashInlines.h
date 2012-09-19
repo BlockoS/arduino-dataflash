@@ -55,7 +55,7 @@ inline void DataFlash::enable()
  **/
 inline void DataFlash::disable()
 {
-    if (m_writeProtectPin < -1)
+    if (m_writeProtectPin >= 0)
         digitalWrite(m_chipSelectPin, HIGH);
 }
 
@@ -64,7 +64,7 @@ inline void DataFlash::disable()
  **/
 inline void DataFlash::writeProtect()
 {
-    if (m_writeProtectPin < -1)
+    if (m_writeProtectPin >= 0)
         digitalWrite(m_writeProtectPin, LOW);
 }
 
