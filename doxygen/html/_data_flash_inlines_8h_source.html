@@ -113,19 +113,19 @@ $(document).ready(function(){initNavTree('_data_flash_inlines_8h_source.html',''
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="group___a_t45_d_bxxx_d.html#ga9e43983108872592cbcf5b81161d1637">   56</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group___a_t45_d_bxxx_d.html#ga9e43983108872592cbcf5b81161d1637" title="Disable (deselect) Dataflash.">DataFlash::disable</a>()</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a> &lt; -1)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        digitalWrite(<a class="code" href="class_data_flash.html#aee53d10e2326ca723383d20bb10f0901" title="Chip select pin (CS).">m_chipSelectPin</a>, HIGH);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="group___a_t45_d_bxxx_d.html#ga28f646814c46e68f1acfa57f7cfd257c">   65</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group___a_t45_d_bxxx_d.html#ga28f646814c46e68f1acfa57f7cfd257c" title="Enable write protection.">DataFlash::writeProtect</a>()</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a> &lt; -1)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        digitalWrite(<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a>, LOW);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="code" href="group___a_t45_d_bxxx_d.html#gad6f612447b1a85f14a158a1d38760d3d">   74</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group___a_t45_d_bxxx_d.html#gad6f612447b1a85f14a158a1d38760d3d" title="Disable write protection.">DataFlash::readWrite</a>()</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    digitalWrite(<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a>, HIGH);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    digitalWrite(<a class="code" href="class_data_flash.html#aee53d10e2326ca723383d20bb10f0901" title="Chip select pin (CS).">m_chipSelectPin</a>, HIGH);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="code" href="group___a_t45_d_bxxx_d.html#ga28f646814c46e68f1acfa57f7cfd257c">   64</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group___a_t45_d_bxxx_d.html#ga28f646814c46e68f1acfa57f7cfd257c" title="Enable write protection.">DataFlash::writeProtect</a>()</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a> &gt;= 0)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        digitalWrite(<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a>, LOW);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="code" href="group___a_t45_d_bxxx_d.html#gad6f612447b1a85f14a158a1d38760d3d">   73</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group___a_t45_d_bxxx_d.html#gad6f612447b1a85f14a158a1d38760d3d" title="Disable write protection.">DataFlash::readWrite</a>()</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a> &gt;= 0)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        digitalWrite(<a class="code" href="class_data_flash.html#a1eee765e1fcab32dfd1b8eb3b1a43cc2" title="Write protect pin (WP).">m_writeProtectPin</a>, HIGH);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
 <div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="group___a_t45_d_bxxx_d.html#ga8292738b97c74daaf517acc217f5a517">   80</a></span>&#160;<span class="keyword">inline</span> int8_t <a class="code" href="group___a_t45_d_bxxx_d.html#ga8292738b97c74daaf517acc217f5a517" title="Get chip Select (CS) pin.">DataFlash::chipSelectPin</a>  ()<span class="keyword"> const</span></div>
@@ -164,7 +164,7 @@ $(document).ready(function(){initNavTree('_data_flash_inlines_8h_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_52a67352ebc3c56a86e89746a43047f5.html">arduino-dataflash</a></li><li class="navelem"><a class="el" href="_data_flash_inlines_8h.html">DataFlashInlines.h</a></li>
-    <li class="footer">Generated on Tue Sep 18 2012 22:58:58 for arduino-dataflash by
+    <li class="footer">Generated on Sat Dec 8 2012 21:08:12 for arduino-dataflash by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

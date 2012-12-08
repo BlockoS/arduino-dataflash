@@ -5,6 +5,9 @@ var searchData=
   ['beginpagewritethroughbuffer',['beginPageWriteThroughBuffer',['../group___a_t45_d_bxxx_d.html#ga26c112be5521c56986b75ab34cc80bfa',1,'DataFlash']]],
   ['blockerase',['blockErase',['../group___a_t45_d_bxxx_d.html#ga2a71cef9d15010baf1c072af1396cd59',1,'DataFlash']]],
   ['bufferread',['bufferRead',['../group___a_t45_d_bxxx_d.html#gaceac70c56c35aa5ecb1b1e008ff1991b',1,'DataFlash']]],
+  ['bufferreadwritetest',['BufferReadWriteTest',['../class_single_device_test_1_1_buffer_read_write_test.html',1,'SingleDeviceTest']]],
+  ['bufferreadwritetest',['BufferReadWriteTest',['../class_single_device_test_1_1_buffer_read_write_test.html#a72528440231acf2a02c01d4475592aca',1,'SingleDeviceTest::BufferReadWriteTest']]],
+  ['bufferreadwritetestinstance',['BufferReadWriteTestinstance',['../namespace_single_device_test.html#ace3f6e79c162019a83623eb8c1c8405d',1,'SingleDeviceTest']]],
   ['buffersize',['bufferSize',['../struct_data_flash_1_1_addressing_infos.html#ae7678c4b3630c7bdeb6ed2c194fdfa1c',1,'DataFlash::AddressingInfos']]],
   ['buffertopage',['bufferToPage',['../group___a_t45_d_bxxx_d.html#gad847ebabc46f56263950f6029f9a645a',1,'DataFlash']]],
   ['bufferwrite',['bufferWrite',['../group___a_t45_d_bxxx_d.html#ga8786893836520501390c39c912c7fc2c',1,'DataFlash']]]

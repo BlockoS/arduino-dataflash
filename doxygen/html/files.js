@@ -1,11 +1,12 @@
 var files =
 [
     [ "Callbacks.h", "_callbacks_8h.html", [
-      [ "CheckFailCallbackInterface", "class_dummy_1_1_check_fail_callback_interface.html", "class_dummy_1_1_check_fail_callback_interface" ],
-      [ "CheckFailCallback", "class_dummy_1_1_check_fail_callback.html", "class_dummy_1_1_check_fail_callback" ]
+      [ "TestNotificationInterface", "class_dummy_1_1_test_notification_interface.html", "class_dummy_1_1_test_notification_interface" ],
+      [ "TestNotification", "class_dummy_1_1_test_notification.html", "class_dummy_1_1_test_notification" ]
     ] ],
     [ "DataFlash.cpp", "_data_flash_8cpp.html", null ],
     [ "DataFlash.h", "_data_flash_8h.html", "_data_flash_8h" ],
+    [ "DataFlash_test.cpp", "_data_flash__test_8cpp.html", "_data_flash__test_8cpp" ],
     [ "DataFlashCommands.h", "_data_flash_commands_8h.html", "_data_flash_commands_8h" ],
     [ "DataFlashInlines.h", "_data_flash_inlines_8h.html", null ],
     [ "DataFlashSizes.h", "_data_flash_sizes_8h.html", "_data_flash_sizes_8h" ],
@@ -19,6 +20,8 @@ var files =
     ] ],
     [ "Runner.cpp", "_runner_8cpp.html", "_runner_8cpp" ],
     [ "Runner.h", "_runner_8h.html", "_runner_8h" ],
+    [ "SerialNotifier.cpp", "_serial_notifier_8cpp.html", "_serial_notifier_8cpp" ],
+    [ "SerialNotifier.h", "_serial_notifier_8h.html", "_serial_notifier_8h" ],
     [ "Test.cpp", "_test_8cpp.html", null ],
     [ "Test.h", "_test_8h.html", [
       [ "Test", "class_dummy_1_1_test.html", "class_dummy_1_1_test" ]

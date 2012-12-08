@@ -167,6 +167,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>bufferRead()
 : <a class="el" href="group___a_t45_d_bxxx_d.html#gaceac70c56c35aa5ecb1b1e008ff1991b">DataFlash</a>
 </li>
+<li>BufferReadWriteTest()
+: <a class="el" href="class_single_device_test_1_1_buffer_read_write_test.html#a72528440231acf2a02c01d4475592aca">SingleDeviceTest::BufferReadWriteTest</a>
+</li>
 <li>bufferToPage()
 : <a class="el" href="group___a_t45_d_bxxx_d.html#gad847ebabc46f56263950f6029f9a645a">DataFlash</a>
 </li>
@@ -177,9 +180,6 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
-<li>CheckFailCallback()
-: <a class="el" href="class_dummy_1_1_check_fail_callback.html#a4bc31e5d58e06285fc783f14dbe6945a">Dummy::CheckFailCallback&lt; T &gt;</a>
-</li>
 <li>chipSelectPin()
 : <a class="el" href="group___a_t45_d_bxxx_d.html#ga8292738b97c74daaf517acc217f5a517">DataFlash</a>
 </li>
@@ -214,6 +214,8 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>Execute()
 : <a class="el" href="class_suite1_1_1_test2.html#a6083eb96a7df181eb338eb93c9d9c297">Suite1::Test2</a>
+, <a class="el" href="class_single_device_test_1_1_buffer_read_write_test.html#af8d0aa271ce92bc38c6828ac3cd2c628">SingleDeviceTest::BufferReadWriteTest</a>
+, <a class="el" href="class_single_device_test_1_1_initialization_test.html#a86c99ab94811fa0dbf26590cfd2e3c82">SingleDeviceTest::InitializationTest</a>
 </li>
 </ul>
 
@@ -221,6 +223,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
 <li>Filename()
 : <a class="el" href="class_dummy_1_1_infos.html#a976723345e9fd1aa530178174f5c979d">Dummy::Infos</a>
+</li>
+<li>FormatString()
+: <a class="el" href="class_dummy_1_1_serial_notifier.html#a0c42d94879045f31f8d0722afc67bc9a">Dummy::SerialNotifier</a>
 </li>
 </ul>
 
@@ -235,6 +240,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>Infos()
 : <a class="el" href="class_dummy_1_1_infos.html#a7367c58bed77ae4a9bae7fea69005e9c">Dummy::Infos</a>
+</li>
+<li>InitializationTest()
+: <a class="el" href="class_single_device_test_1_1_initialization_test.html#a2a6a6a0cfba601f759b1abd33cc39124">SingleDeviceTest::InitializationTest</a>
 </li>
 <li>Instance()
 : <a class="el" href="class_dummy_1_1_runner.html#a5cedec0e72ee123531812cfe0c537beb">Dummy::Runner</a>
@@ -267,9 +275,17 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 <h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
 <li>Notify()
-: <a class="el" href="class_dummy_1_1_check_fail_callback_interface.html#ae865b7e26e487d00102db8a3a11ca3a0">Dummy::CheckFailCallbackInterface</a>
-, <a class="el" href="class_simple_failure_notifier.html#a098e2402eaca636428142a9224f5379f">SimpleFailureNotifier</a>
-, <a class="el" href="class_dummy_1_1_check_fail_callback.html#ad96d9ff8a2284563c0e467bdbb5dc59f">Dummy::CheckFailCallback&lt; T &gt;</a>
+: <a class="el" href="class_simple_failure_notifier.html#a098e2402eaca636428142a9224f5379f">SimpleFailureNotifier</a>
+</li>
+<li>NotifyFailure()
+: <a class="el" href="class_dummy_1_1_test_notification_interface.html#a4bc0c1d73b2be06643e41ff568c3412b">Dummy::TestNotificationInterface</a>
+, <a class="el" href="class_dummy_1_1_serial_notifier.html#a2b4aec2226cfc6df72e92c79d5b7741e">Dummy::SerialNotifier</a>
+, <a class="el" href="class_dummy_1_1_test_notification.html#a13b4bcdf5a93ce34acff96ec883336f0">Dummy::TestNotification&lt; T &gt;</a>
+</li>
+<li>NotifyResult()
+: <a class="el" href="class_dummy_1_1_serial_notifier.html#a0f8b4fb5491f6537f494f02d800eec4c">Dummy::SerialNotifier</a>
+, <a class="el" href="class_dummy_1_1_test_notification_interface.html#a5902c5df79742af804b9830dd4d9ec77">Dummy::TestNotificationInterface</a>
+, <a class="el" href="class_dummy_1_1_test_notification.html#ae9bb9ba8111590fab37f5567e03d9d31">Dummy::TestNotification&lt; T &gt;</a>
 </li>
 </ul>
 
@@ -327,12 +343,14 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>Run()
 : <a class="el" href="class_suite1_1_1_empty.html#a661c2b6308d76464ebc64b5785259171">Suite1::Empty</a>
-, <a class="el" href="class_suite1_1_1_ok.html#a189ec152cab1e0a65208d1ddffb661ee">Suite1::Ok</a>
+, <a class="el" href="class_dummy_1_1_runner.html#a41c1a1341dfb4375f25ed607e78b9c2e">Dummy::Runner</a>
 , <a class="el" href="class_suite1_1_1_test2.html#a34a5bf9418ac30ad4b828376f71dc591">Suite1::Test2</a>
-, <a class="el" href="class_dummy_1_1_runner.html#a14fa51af2c7996741c5459bd52f92f8c">Dummy::Runner</a>
-, <a class="el" href="class_suite0_1_1_test0.html#ad24b21eaf609436f4dd7925304ceade3">Suite0::Test0</a>
-, <a class="el" href="class_suite0_1_1_test1.html#a9b5ad3b68e89107a0964d38087fc4425">Suite0::Test1</a>
+, <a class="el" href="class_single_device_test_1_1_buffer_read_write_test.html#aa5644d99bb559030a9d47e67672a4b46">SingleDeviceTest::BufferReadWriteTest</a>
 , <a class="el" href="class_dummy_1_1_test.html#a67440c5aae2942b6468c0a14f85d2dd1">Dummy::Test</a>
+, <a class="el" href="class_suite0_1_1_test0.html#ad24b21eaf609436f4dd7925304ceade3">Suite0::Test0</a>
+, <a class="el" href="class_single_device_test_1_1_initialization_test.html#a4b22941167bff7cec6ff5b346dd9ef35">SingleDeviceTest::InitializationTest</a>
+, <a class="el" href="class_suite1_1_1_ok.html#a189ec152cab1e0a65208d1ddffb661ee">Suite1::Ok</a>
+, <a class="el" href="class_suite0_1_1_test1.html#a9b5ad3b68e89107a0964d38087fc4425">Suite0::Test1</a>
 , <a class="el" href="class_lonely_test.html#a2f0edaf15d85f073bf55d202c7a932e5">LonelyTest</a>
 </li>
 <li>Runner()
@@ -345,11 +363,15 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>sectorErase()
 : <a class="el" href="group___a_t45_d_bxxx_d.html#ga278bd90e8cad06d07f69cbecfbc399e1">DataFlash</a>
 </li>
-<li>setup()
-: <a class="el" href="group___a_t45_d_bxxx_d.html#ga419559837884f4a00280452d16077e33">DataFlash</a>
+<li>SerialNotifier()
+: <a class="el" href="class_dummy_1_1_serial_notifier.html#ad324d13c9f67dbf2d7a7f1467fce4c33">Dummy::SerialNotifier</a>
 </li>
 <li>Setup()
-: <a class="el" href="class_simple_fixture.html#a8d64f74d32feec92aa6e4962523bd4a6">SimpleFixture</a>
+: <a class="el" href="class_data_flash_fixture.html#a0a7488941e39105b7e6865b479b39521">DataFlashFixture</a>
+, <a class="el" href="class_simple_fixture.html#a8d64f74d32feec92aa6e4962523bd4a6">SimpleFixture</a>
+</li>
+<li>setup()
+: <a class="el" href="group___a_t45_d_bxxx_d.html#ga419559837884f4a00280452d16077e33">DataFlash</a>
 </li>
 <li>status()
 : <a class="el" href="group___a_t45_d_bxxx_d.html#ga95c279ec0681684fa6a3dd55e73254cd">DataFlash</a>
@@ -362,7 +384,8 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>TearDown()
-: <a class="el" href="class_simple_fixture.html#a92f85ce6a1436f4268667ff31f8c727b">SimpleFixture</a>
+: <a class="el" href="class_data_flash_fixture.html#af53b7e740afb7bc56eff5ee9f21101c5">DataFlashFixture</a>
+, <a class="el" href="class_simple_fixture.html#a92f85ce6a1436f4268667ff31f8c727b">SimpleFixture</a>
 </li>
 <li>Test()
 : <a class="el" href="class_dummy_1_1_test.html#a5746ea7f002bba276af301284d0b22a4">Dummy::Test</a>
@@ -378,6 +401,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>TestName()
 : <a class="el" href="class_dummy_1_1_infos.html#aab30ba7614d468b66c60151bab203e80">Dummy::Infos</a>
+</li>
+<li>TestNotification()
+: <a class="el" href="class_dummy_1_1_test_notification.html#a788293ba49977a2f153c3c5729076ba1">Dummy::TestNotification&lt; T &gt;</a>
 </li>
 </ul>
 
@@ -396,11 +422,8 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 
 <h3><a class="anchor" id="index_0x7e"></a>- ~ -</h3><ul>
-<li>~CheckFailCallback()
-: <a class="el" href="class_dummy_1_1_check_fail_callback.html#af40109d85005455fe37290c6b11a2abf">Dummy::CheckFailCallback&lt; T &gt;</a>
-</li>
-<li>~CheckFailCallbackInterface()
-: <a class="el" href="class_dummy_1_1_check_fail_callback_interface.html#a4d3ff56ae13500658a1408a5c2fa044e">Dummy::CheckFailCallbackInterface</a>
+<li>~BufferReadWriteTest()
+: <a class="el" href="class_single_device_test_1_1_buffer_read_write_test.html#ae2e279bd8503a502d64350bff47716cd">SingleDeviceTest::BufferReadWriteTest</a>
 </li>
 <li>~DataFlash()
 : <a class="el" href="group___a_t45_d_bxxx_d.html#gae8579da268fdad6bb61c6e99341d287d">DataFlash</a>
@@ -411,6 +434,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>~Infos()
 : <a class="el" href="class_dummy_1_1_infos.html#a0053c063b453b918e5d1d524d831046e">Dummy::Infos</a>
 </li>
+<li>~InitializationTest()
+: <a class="el" href="class_single_device_test_1_1_initialization_test.html#a0010b62deda6bcb879865b04e3832704">SingleDeviceTest::InitializationTest</a>
+</li>
 <li>~LonelyTest()
 : <a class="el" href="class_lonely_test.html#a26f7a0d1b027060023e430fa51688ad8">LonelyTest</a>
 </li>
@@ -419,6 +445,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>~Runner()
 : <a class="el" href="class_dummy_1_1_runner.html#ac07b38e03b9baa87400cfb0bdbab5f89">Dummy::Runner</a>
+</li>
+<li>~SerialNotifier()
+: <a class="el" href="class_dummy_1_1_serial_notifier.html#a062d3d22efe4977949c8a4a4bba5f6f1">Dummy::SerialNotifier</a>
 </li>
 <li>~SimpleFailureNotifier()
 : <a class="el" href="class_simple_failure_notifier.html#a58ed81febd0b0bb6f39320ed03488a28">SimpleFailureNotifier</a>
@@ -435,13 +464,19 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>~Test2()
 : <a class="el" href="class_suite1_1_1_test2.html#a798799fe0c3a02a7a5eb78ba15754276">Suite1::Test2</a>
 </li>
+<li>~TestNotification()
+: <a class="el" href="class_dummy_1_1_test_notification.html#a2098cc2237cb2223cdba1d0c1859fc2e">Dummy::TestNotification&lt; T &gt;</a>
+</li>
+<li>~TestNotificationInterface()
+: <a class="el" href="class_dummy_1_1_test_notification_interface.html#ae7e220a177c60765e101071d9a6d8581">Dummy::TestNotificationInterface</a>
+</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Sep 18 2012 22:58:58 for arduino-dataflash by
+    <li class="footer">Generated on Sat Dec 8 2012 21:08:13 for arduino-dataflash by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

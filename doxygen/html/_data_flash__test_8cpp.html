@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>arduino-dataflash: Dummy::CheckFailCallbackInterface Class Reference</title>
+<title>arduino-dataflash: DataFlash_test.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -45,8 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -67,10 +67,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -85,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('class_dummy_1_1_check_fail_callback_interface.html','');});
+$(document).ready(function(){initNavTree('_data_flash__test_8cpp.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -104,128 +102,87 @@ $(document).ready(function(){initNavTree('class_dummy_1_1_check_fail_callback_in
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_dummy_1_1_check_fail_callback_interface-members.html">List of all members</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">Dummy::CheckFailCallbackInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DataFlash_test.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>CHECK failure notification interface.  
- <a href="class_dummy_1_1_check_fail_callback_interface.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="_callbacks_8h_source.html">Callbacks.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Dummy::CheckFailCallbackInterface:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_dummy_1_1_check_fail_callback_interface.png" usemap="#Dummy::CheckFailCallbackInterface_map" alt=""/>
-  <map id="Dummy::CheckFailCallbackInterface_map" name="Dummy::CheckFailCallbackInterface_map">
-<area href="class_dummy_1_1_check_fail_callback.html" title="CHECK failure notification helper." alt="Dummy::CheckFailCallback&lt; T &gt;" shape="rect" coords="0,56,215,80"/>
-<area href="class_simple_failure_notifier.html" alt="SimpleFailureNotifier" shape="rect" coords="225,56,440,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a4d3ff56ae13500658a1408a5c2fa044e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dummy_1_1_check_fail_callback_interface.html#a4d3ff56ae13500658a1408a5c2fa044e">~CheckFailCallbackInterface</a> ()</td></tr>
-<tr class="memdesc:a4d3ff56ae13500658a1408a5c2fa044e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a4d3ff56ae13500658a1408a5c2fa044e"></a><br/></td></tr>
-<tr class="separator:a4d3ff56ae13500658a1408a5c2fa044e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae865b7e26e487d00102db8a3a11ca3a0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dummy_1_1_check_fail_callback_interface.html#ae865b7e26e487d00102db8a3a11ca3a0">Notify</a> (char const *expected, char const *value, <a class="el" href="class_dummy_1_1_infos.html">Infos</a> const &amp;infos)=0</td></tr>
-<tr class="memdesc:ae865b7e26e487d00102db8a3a11ca3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CHECK failure notification.  <a href="#ae865b7e26e487d00102db8a3a11ca3a0"></a><br/></td></tr>
-<tr class="separator:ae865b7e26e487d00102db8a3a11ca3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<div class="textblock"><code>#include &lt;SPI.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="_data_flash_8h_source.html">DataFlash.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_dummy_8h_source.html">test/Dummy.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_serial_notifier_8h_source.html">test/SerialNotifier.h</a>&quot;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data_flash_fixture.html">DataFlashFixture</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_single_device_test_1_1_initialization_test.html">SingleDeviceTest::InitializationTest</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_single_device_test_1_1_buffer_read_write_test.html">SingleDeviceTest::BufferReadWriteTest</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespace_single_device_test"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_single_device_test.html">SingleDeviceTest</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab2c81da1ec7e4a8e7bb461d34ebac8a7"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_single_device_test.html#ab2c81da1ec7e4a8e7bb461d34ebac8a7">SingleDeviceTest::GetSuiteName</a> ()</td></tr>
+<tr class="separator:ab2c81da1ec7e4a8e7bb461d34ebac8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_data_flash__test_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
+<tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_data_flash__test_8cpp.html#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
+<tr class="separator:afe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a7b2a4dbfeb85259298d8305a288c5f85"><td class="memItemLeft" align="right" valign="top">static InitializationTest&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_single_device_test.html#a7b2a4dbfeb85259298d8305a288c5f85">SingleDeviceTest::InitializationTestinstance</a></td></tr>
+<tr class="separator:a7b2a4dbfeb85259298d8305a288c5f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace3f6e79c162019a83623eb8c1c8405d"><td class="memItemLeft" align="right" valign="top">static BufferReadWriteTest&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_single_device_test.html#ace3f6e79c162019a83623eb8c1c8405d">SingleDeviceTest::BufferReadWriteTestinstance</a></td></tr>
+<tr class="separator:ace3f6e79c162019a83623eb8c1c8405d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>CHECK failure notification interface. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a4d3ff56ae13500658a1408a5c2fa044e"></a>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="afe461d27b9c48d5921c00d521181f12f"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual Dummy::CheckFailCallbackInterface::~CheckFailCallbackInterface </td>
+          <td class="memname">void loop </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Destructor. </p>
-
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ae865b7e26e487d00102db8a3a11ca3a0"></a>
+<a class="anchor" id="a4fc01d736fe50cf5b977f755b675f11d"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void Dummy::CheckFailCallbackInterface::Notify </td>
+          <td class="memname">void setup </td>
           <td>(</td>
-          <td class="paramtype">char const *&#160;</td>
-          <td class="paramname"><em>expected</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">char const *&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_dummy_1_1_infos.html">Infos</a> const &amp;&#160;</td>
-          <td class="paramname"><em>infos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>CHECK failure notification. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>: expected value string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>: tested value string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">infos</td><td>: test informations. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="class_simple_failure_notifier.html#a098e2402eaca636428142a9224f5379f">SimpleFailureNotifier</a>, and <a class="el" href="class_dummy_1_1_check_fail_callback.html#ad96d9ff8a2284563c0e467bdbb5dc59f">Dummy::CheckFailCallback&lt; T &gt;</a>.</p>
-
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="_callbacks_8h_source.html">Callbacks.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespace_dummy.html">Dummy</a></li><li class="navelem"><a class="el" href="class_dummy_1_1_check_fail_callback_interface.html">CheckFailCallbackInterface</a></li>
-    <li class="footer">Generated on Tue Sep 18 2012 22:58:58 for arduino-dataflash by
+    <li class="navelem"><a class="el" href="dir_52a67352ebc3c56a86e89746a43047f5.html">arduino-dataflash</a></li><li class="navelem"><a class="el" href="_data_flash__test_8cpp.html">DataFlash_test.cpp</a></li>
+    <li class="footer">Generated on Sat Dec 8 2012 21:08:12 for arduino-dataflash by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>
