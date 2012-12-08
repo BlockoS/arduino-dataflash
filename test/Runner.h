@@ -58,10 +58,10 @@ namespace Dummy
 
 		/**
 		 * Process every test declared.
-         * @param [in] onCheckFailed : CHECK failure notification callback (optional).
+         * @param [in] notify : Notification callback (optional).
 		 * @return Tests result.
 		 **/
-        Result Run(CheckFailCallbackInterface* onCheckFailed=0);
+        Result Run(TestNotificationInterface* notify=0);
 
         /**
          * CHECK failure notification. 
@@ -91,7 +91,7 @@ namespace Dummy
       protected:
         Result m_result; /** Test campaign results. **/
         
-        CheckFailCallbackInterface* m_onCheckFailed; /** CHECK failure notification callback. **/
+        TestNotificationInterface* m_notify; /** Test notification callbacks. **/
         
         Test* m_head; /**< First element of the test list. **/
         Test* m_tail; /**< Last element of the test list. **/

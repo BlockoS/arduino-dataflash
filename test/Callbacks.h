@@ -34,6 +34,7 @@
 #define CALLBACKS_H
 
 #include "Infos.h"
+#include "Result.h"
 
 /**
  * @addtogroup DummyUnitTest
@@ -42,54 +43,67 @@
 namespace Dummy
 {
     /**
-     * CHECK failure notification interface.
+     * Test notification interface.
      **/
-    class CheckFailCallbackInterface
+    class TestNotificationInterface
     {
         public:
             /** Destructor. **/
-            virtual ~CheckFailCallbackInterface() {};
+            virtual ~TestNotificationInterface() {};
+			/**
+			 * Test failure notification. 
+			 * @param [in] expected : expected value string.
+			 * @param [in] value    : tested value string.
+			 * @param [in] infos    : test informations.
+			 **/
+            virtual void NotifyFailure(char const* expected, char const* value, Infos const& infos) = 0;
             /**
-             * CHECK failure notification.
-             * @param [in] expected : expected value string.
-             * @param [in] value    : tested value string.
-             * @param [in] infos    : test informations.
-             **/
-            virtual void Notify(char const* expected, char const* value, Infos const& infos) = 0;
+			 * Tests result notification. 
+			 * @param [in] result : tests result.
+			 **/
+            virtual void NotifyResult(const Result& result) = 0;
     };
  
     /**
-     * CHECK failure notification helper.
+     * Test notification helper.
      **/
     template <class T>
-    class CheckFailCallback : public CheckFailCallbackInterface
+    class TestNotification : public TestNotificationInterface
     {
         public:
-            typedef void (T::*TNotifyProc) (char const*, char const*, Infos const&);
+            typedef void (T::*TNotifyFailureProc) (char const*, char const*, Infos const&);
+            typedef void (T::*TNotifyResultProc) (const Result& result);
         
             /** Constructor. **/
-            CheckFailCallback(T* handler, TNotifyProc notify);
+            TestNotification(T* handler, TNotifyFailureProc notifyFailure, TNotifyResultProc notifyResult);
             /** Destructor. **/
-            virtual ~CheckFailCallback() {}
+            virtual ~TestNotification() {}
             
             /**
-             * CHECK failure notification. 
+             * Test failure notification. 
              * @param [in] expected : expected value string.
              * @param [in] value    : tested value string.
              * @param [in] infos    : test informations.
              **/
-            virtual void Notify(char const* expected, char const* value, Infos const& infos);
+            virtual void NotifyFailure(char const* expected, char const* value, Infos const& infos);
+            /**
+			 * Tests result notification. 
+			 * @param [in] result : tests result.
+			 **/
+            virtual void NotifyResult(const Result& result);
             
         protected:
             T* m_handler; /**< Handler instance. **/
-            TNotifyProc m_notify; /**< Handler method to be called on failure notification. **/
+            TNotifyFailureProc m_notifyFailure; /**< Handler method to be called on failure notification. **/
+            TNotifyResultProc m_notifyResult; /**< Handler method to be called on result notification. **/
     };
     
     /** Constructor. **/
     template <class T>
-    CheckFailCallback<T>::CheckFailCallback(T* handler, TNotifyProc notify)
+    TestNotification<T>::TestNotification(T* handler, TNotifyFailureProc notifyFailure, TNotifyResultProc notifyResult)
         : m_handler(handler)
-        , m_notify(notify)
+        , m_notifyFailure(notifyFailure)
+        , m_notifyResult(notifyResult)
     {}
     
     /**
@@ -99,9 +113,9 @@ namespace Dummy
      * @param [in] infos    : test informations.
      **/
     template <class T>
-    void CheckFailCallback<T>::Notify(char const* expected, char const* value, Infos const& infos)
+    void TestNotification<T>::NotifyFailure(char const* expected, char const* value, Infos const& infos)
     {
-        (m_handler->*(m_notify)) (expected, value, infos);
+        (m_handler->*(m_notifyFailure)) (expected, value, infos);
     }
 };
 /** @} **/

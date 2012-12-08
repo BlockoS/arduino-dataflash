@@ -70,7 +70,7 @@ namespace Dummy
     
     int Stringify(float value, char* buffer, int bufferLen)
     {
-        return snprintf(buffer, bufferLen, "%f", value);
+        return snprintf(buffer, bufferLen, "%f", (double)value);
     }
     
     int Stringify(char const* value, char* buffer, int bufferLen)

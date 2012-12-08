@@ -40,7 +40,7 @@ namespace Dummy
 {
     /** Constructor **/
     Runner::Runner()
-      : m_onCheckFailed(0)
+      : m_notify(0)
       , m_head(0)
       , m_tail(0)
     {}
@@ -68,12 +68,12 @@ namespace Dummy
 
     /**
      * Process every test declared.
-     * @param [in] onCheckFailed : CHECK failure notification callback.
+     * @param [in] notify : Test notification callbacks.
      * @return Tests result.
      **/
-    Result Runner::Run(CheckFailCallbackInterface* onCheckFailed)
+    Result Runner::Run(TestNotificationInterface* notify)
     {
-      m_onCheckFailed = onCheckFailed;
+      m_notify = notify;
       m_result.Reset();
       for(Test* it=m_head; it!=0; it=it->m_next, ++m_result.total)
       {
@@ -83,6 +83,10 @@ namespace Dummy
         {
             ++m_result.failed;
         }
+      }
+      if(m_notify)
+      {
+		m_notify->NotifyResult(m_result);
       }
       return m_result;
     }
@@ -96,9 +100,9 @@ namespace Dummy
     void Runner::OnCheckFailed(char const* expected, char const* value, Infos const& infos)
     {
         ++m_result.error;
-        if(m_onCheckFailed)
+        if(m_notify)
         {
-            m_onCheckFailed->Notify(expected, value, infos);
+            m_notify->NotifyFailure(expected, value, infos);
         }
     }
 

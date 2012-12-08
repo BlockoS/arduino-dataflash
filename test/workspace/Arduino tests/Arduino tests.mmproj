@@ -1,0 +1,23 @@
+<mm_project serial_port="COM3" board="Arduino BT w/ ATmega168" programmer="" includePaths="" libPaths="" libs="" default="yes" useCodeAutomation="yes" linkPrintfVersion="1" >
+  <files>
+    <file name="SerialTest.cpp" open="yes" />
+  </files>
+  <extras>
+  </extras>
+  <externals>
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Infos.cpp" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Runner.cpp" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Test.cpp" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Utils.cpp" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Callbacks.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Dummy.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Infos.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Macros.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Result.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Runner.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\SerialNotifier.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Test.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\Utils.h" />
+    <external name="D:\Dev\arduino\arduino-dataflash\test\SerialNotifier.cpp" />
+  </externals>
+</mm_project>
