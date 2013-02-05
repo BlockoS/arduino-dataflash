@@ -144,7 +144,7 @@
 /** Read Sector Protection Register **/
 #define DATAFLASH_READ_SECTOR_PROTECTION_REGISTER 0x32
 /** Read Sector Lockdown Register **/
-#define DATAFLASH_READ_SECTOR_LOCKDOWN_REGISTER 35H
+#define DATAFLASH_READ_SECTOR_LOCKDOWN_REGISTER 0x35
 /** Read Security Register **/
 #define DATAFLASH_READ_SECURITY_REGISTER 0x77
 /** @} **/

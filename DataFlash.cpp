@@ -383,6 +383,9 @@ void DataFlash::arrayRead(uint16_t page, uint16_t offset)
  **/
 void DataFlash::bufferRead(uint8_t bufferNum, uint16_t offset)
 {
+    /* Wait for the end of the previous operation. */
+    waitUntilReady();
+    
     reEnable();     // Reset command decoder.
 
     /* Send opcode */
@@ -432,6 +435,9 @@ void DataFlash::bufferRead(uint8_t bufferNum, uint16_t offset)
  **/
 void DataFlash::bufferWrite(uint8_t bufferNum, uint16_t offset)
 {
+    /* Wait for the end of the previous operation. */
+    waitUntilReady();
+    
     reEnable();     // Reset command decoder.
 
     SPI.transfer(bufferNum ? DATAFLASH_BUFFER_2_WRITE :
@@ -459,7 +465,7 @@ void DataFlash::bufferToPage(uint8_t bufferNum, uint16_t page)
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 
-    enable();
+    reEnable();
 
     /* Opcode */
     if (m_erase == ERASE_AUTO)
@@ -493,7 +499,7 @@ void DataFlash::pageToBuffer(uint16_t page, uint8_t bufferNum)
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 
-    enable();
+    reEnable();
 
     /* Send opcode */
     SPI.transfer(bufferNum ? DATAFLASH_TRANSFER_PAGE_TO_BUFFER_2 :
@@ -520,7 +526,7 @@ void DataFlash::pageErase(uint16_t page)
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 
-    enable();
+    reEnable();
     
     /* Send opcode */
     SPI.transfer(DATAFLASH_PAGE_ERASE);
@@ -544,7 +550,7 @@ void DataFlash::blockErase(uint16_t block)
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 
-    enable();
+    reEnable();
     
     /* Send opcode */
     SPI.transfer(DATAFLASH_BLOCK_ERASE);
@@ -573,7 +579,7 @@ void DataFlash::sectorErase(int8_t sector)
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 
-    enable();
+    reEnable();
     
     /* Send opcode */
     SPI.transfer(DATAFLASH_SECTOR_ERASE);
@@ -653,7 +659,6 @@ void DataFlash::chipErase()
  * @param page Page to which the content of the buffer is written.
  * @param offset Starting byte address within the buffer.
  * @param bufferNum Buffer to use (0 or 1).
- * @warning UNTESTED
  **/
 void DataFlash::beginPageWriteThroughBuffer(
         uint16_t page, uint16_t offset, uint8_t bufferNum)

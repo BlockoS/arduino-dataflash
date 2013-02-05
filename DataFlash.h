@@ -429,7 +429,6 @@ class DataFlash
          * @param page Page to which the content of the buffer is written.
          * @param offset Starting byte address within the buffer.
          * @param bufferNum Buffer to use (0 or 1).
-         * @warning UNTESTED
          **/
         void beginPageWriteThroughBuffer(uint16_t page, uint16_t offset, uint8_t bufferNum);
 
