@@ -7,30 +7,13 @@ At the moment only the D version is supported.
 Hardware setup
 -------------------------------
 DataFlash is 5V tolerant but you must power it with 3.3V.
-
-<table>
-  <tr>
-    <th> </th><th>Arduino</th><th>Dataflash</th>
-  </tr>
-  <tr>
-    <td>MISO</td><td>11</td><td>1</td>
-  </tr>
-  <tr>
-    <td>MOSI</td><td>12</td><td>8</td>
-  </tr>
-  <tr>
-    <td>SCK</td><td>13</td><td>2</td>
-  </tr>
-  <tr>
-    <td>SS</td><td>10</td><td>4</td>
-  </tr>
-  <tr>
-    <td>RESET</td><td>user defined</td><td>3</td>
-  </tr>
-  <tr>
-    <td>WP</td><td>user defined</td><td>5</td>
-  </tr>
-</table>
+          Arduino     Dataflash
+MISO        11            1
+MOSI        12            8
+SCK         13            2
+SS          10            4
+RESET   user defined      3
+WP      user defined      5 
 
 Software setup
 -------------------------------
@@ -49,7 +32,7 @@ Please refer to the doxygen documentation for a more detailed API description.
 Example
 -------------------------------
 The following example shows how to write and read on a AT45DB161D DataFlash.
-```
+
 #include <SPI.h>
 #include "DataFlash.h"
 
@@ -102,4 +85,4 @@ void loop()
 {
   // nothing
 }
-```
+
