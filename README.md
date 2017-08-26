@@ -7,6 +7,7 @@ At the moment only the D version is supported.
 Hardware setup
 -------------------------------
 DataFlash is 5V tolerant but you must power it with 3.3V.
+
 | Signal | Arduino pin  | Dataflash |
 |--------|--------------|-----------|
 |  MISO  |     11       |     1     |
