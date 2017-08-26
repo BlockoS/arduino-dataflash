@@ -7,13 +7,14 @@ At the moment only the D version is supported.
 Hardware setup
 -------------------------------
 DataFlash is 5V tolerant but you must power it with 3.3V.
-          Arduino     Dataflash
-MISO        11            1
-MOSI        12            8
-SCK         13            2
-SS          10            4
-RESET   user defined      3
-WP      user defined      5 
+| Signal | Arduino pin  | Dataflash |
+|--------|--------------|-----------|
+|  MISO  |     11       |     1     |
+|  MOSI  |     12       |     8     |
+|  SCK   |     13       |     2     |
+|  SS    |     10       |     4     |
+|  RESET | user defined |     3     |
+|  WP    | user defined |     5     |
 
 Software setup
 -------------------------------
@@ -24,15 +25,15 @@ Copy the following filesto your library or sketch folder.
 * DataFlashInlines.h
 * DataFlashSizes.h
 
-DataFlash_test.cpp is a simple unit test program. It is built upon the arduino-tests library (https://github.com/BlockoS/arduino-tests).
+DataFlash_test.cpp is a simple unit test program. It is built upon the [arduino-tests library](https://github.com/BlockoS/arduino-tests).
 The /examples/ directory contains some sample sketches.
 
-Please refer to the doxygen documentation for a more detailed API description.
+Please refer to the [doxygen documentation](http://blockos.github.io/arduino-dataflash/doxygen/html/) for a more detailed API description.
 
 Example
 -------------------------------
 The following example shows how to write and read on a AT45DB161D DataFlash.
-
+```cpp
 #include <SPI.h>
 #include "DataFlash.h"
 
@@ -85,4 +86,4 @@ void loop()
 {
   // nothing
 }
-
+```
