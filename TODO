@@ -1,5 +1,0 @@
-1. Block erase
-
-2. Implement chip erase as multiple sector erases
-
-3. Clean up and publish continuous write code
