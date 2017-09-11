@@ -1,7 +1,7 @@
 #include <SPI.h>
-#include "DataFlash.h"
+#include <DataFlash.h>
 
-#include "test/Dummy.h"
+#include "arduino-test/Dummy.h"
 
 class DataFlashFixture
 {
