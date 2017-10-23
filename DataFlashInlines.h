@@ -58,24 +58,6 @@ inline void DataFlash::disable()
     digitalWrite(m_chipSelectPin, HIGH);
 }
 
-/**
- * Enable write protection.
- **/
-inline void DataFlash::writeProtect()
-{
-    if (m_writeProtectPin >= 0)
-        digitalWrite(m_writeProtectPin, LOW);
-}
-
-/**
- * Disable write protection.
- **/
-inline void DataFlash::readWrite()
-{
-    if (m_writeProtectPin >= 0)
-        digitalWrite(m_writeProtectPin, HIGH);
-}
-
 /** Get chip Select (CS) pin **/
 inline int8_t DataFlash::chipSelectPin  () const
 {
@@ -119,4 +101,5 @@ inline void DataFlash::endAndWait()
     /* Wait for the end of the previous operation. */
     waitUntilReady();
 }
+
 /** @} **/

@@ -165,11 +165,11 @@
 /**
  * Sector 0a id.
  **/
-#define AT45_SECTOR_0A  0
+#define AT45_SECTOR_0A -1
 /**
  * Sector 0b id.
  **/
-#define AT45_SECTOR_0B -1
+#define AT45_SECTOR_0B 0
  /**
   * @}
   **/
@@ -462,15 +462,26 @@ class DataFlash
          **/
         void hardReset();
 
-        /**
-         * Enable write protection.
-         **/
-        inline void writeProtect();
+        void enableSectorProtection();
+        void disableSectorProtection();
+        void eraseSectorProtectionRegister();
 
-        /**
-         * Disable write protection.
-         **/
-        inline void readWrite();
+        class SectorProtectionStatus
+        {
+          friend class DataFlash;
+          public:
+            SectorProtectionStatus();
+            SectorProtectionStatus(const SectorProtectionStatus &status);
+            SectorProtectionStatus& operator=(const SectorProtectionStatus& status);
+            void set(int8_t sectorId, bool status);
+            bool get(int8_t sectorId) const;
+            void clear();
+          private:
+            uint8_t data[64];
+        };
+        
+        uint8_t programSectorProtectionRegister(const SectorProtectionStatus& status);
+        uint8_t readSectorProtectionRegister(SectorProtectionStatus& status);
 
         /** Get chip Select (CS) pin **/
         inline int8_t chipSelectPin  () const;
@@ -493,24 +504,20 @@ class DataFlash
     private:
         /**
          * %Dataflash read/write addressing infos.
-         * @warning Power of 2 addressing is not supported for the moment!
          **/
         struct AddressingInfos
         {
-            uint8_t bufferSize[7]; /**< Size of the buffer address bits. **/
-            uint8_t pageSize[7];   /**< Size of the page address bits. **/
-            uint8_t sectorSize[7]; /**< Size of the sector address bits (part of the page address). **/
+            uint8_t bufferSize; /**< Size of the buffer address bits. **/
+            uint8_t pageSize;   /**< Size of the page address bits. **/
+            uint8_t sectorSize; /**< Size of the sector address bits (part of the page address). **/
         };
-
-        static const AddressingInfos m_infos; /**< @see AddressingInfos **/
+        static const AddressingInfos m_infos[7];
         
         int8_t m_chipSelectPin;    /**< Chip select pin (CS). **/
         int8_t m_resetPin;         /**< Reset pin (RESET). **/
         int8_t m_writeProtectPin;  /**< Write protect pin (WP). **/
 
-        uint8_t m_SPCR;             /**< SPI register backup. **/
-        uint8_t m_SPSR;             /**< SPI register backup. **/
-
+        uint8_t m_deviceIndex;      /**< Device index. (0: at45db011d, 1: at45db041d, ...) **/
         uint8_t m_bufferSize;       /**< Size of the buffer address bits. **/
         uint8_t m_pageSize;         /**< Size of the page address bits. **/
         uint8_t m_sectorSize;       /**< Size of the sector address bits. **/
@@ -520,6 +527,8 @@ class DataFlash
 #ifdef AT45_USE_SPI_SPEED_CONTROL
         enum IOspeed m_speed;       /**< SPI transfer speed. **/
 #endif
+
+        SPISettings m_settings;     /**< [todo] **/
 };
 
 #include "DataFlashInlines.h"

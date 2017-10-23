@@ -77,12 +77,15 @@
  **/
  
 /* No need to put this into PROGMEM */
-const DataFlash::AddressingInfos DataFlash::m_infos =
+const DataFlash::AddressingInfos DataFlash::m_infos[7] =
 {
-	/* 1   2   4   8  16  32  64 */
-	{  9,  9,  9,  9, 10, 10, 11 },
-	{  9, 10, 11, 12, 12, 13, 13 },
-	{  2,  3,  3,  4,  4,  6,  5 }
+    {  9,  9, 2 }, //  1
+    {  9, 10, 3 }, //  2
+    {  9, 11, 3 }, //  4
+    {  9, 12, 4 }, //  8
+    { 10, 12, 4 }, // 16
+    { 10, 13, 6 }, // 32
+    { 11, 13, 5 }  // 64
 };
 
 /**
@@ -133,34 +136,22 @@ void DataFlash::setup(int8_t csPin, int8_t resetPin, int8_t wpPin)
     m_speed = SPEED_LOW;
 #endif
         
-    /* Clear pending SPI interrupts */
-#ifdef __AVR__
-    uint8_t clr;
-    clr = SPSR;
-    clr = SPDR;
-    (void) clr; // Prevent variable set but unused warning. No code generated.
-#endif
-
     /* Setup SPI */
     SPI.setDataMode(SPI_MODE3);
     SPI.setBitOrder(MSBFIRST);
     SPI.setClockDivider(SPI_CLOCK_DIV2);
 
-    /* Save SPI registers with settings for DataFlash for fast restore
-     * in .begin(). */
-    m_SPSR = (SPSR & SPI_2XCLOCK_MASK);
-    m_SPCR = SPCR;
-    
     /* Get DataFlash status register. */
     uint8_t stat;
     stat = status();
 
     /* Bit 3 of status register is ignored as it's always 1. Note that it is
      * equal to 0 on the obsolete chip with density higher than 64 MB. */
-    uint8_t deviceIndex = ((stat & 0x38) >> 3) - 1; 
-	m_bufferSize = m_infos.bufferSize[deviceIndex];
-	m_pageSize   = m_infos.pageSize[deviceIndex];  
-	m_sectorSize = m_infos.sectorSize[deviceIndex];
+    m_deviceIndex = ((stat & 0x38) >> 3) - 1;
+    /* If bit 0 is set, page size is set to 256 bytes, 264 otherwise. */
+    m_bufferSize = m_infos[m_deviceIndex].bufferSize - (stat & 1);
+    m_pageSize   = m_infos[m_deviceIndex].pageSize;  
+    m_sectorSize = m_infos[m_deviceIndex].sectorSize;
 }
 
 /** 
@@ -171,10 +162,7 @@ void DataFlash::setup(int8_t csPin, int8_t resetPin, int8_t wpPin)
 void DataFlash::begin()
 {
     // Clear pending SPI interrupts?
-    
-    /* Quick-load SPI registers for DataFlash use. */
-    SPCR = m_SPCR;
-    SPSR = m_SPSR;
+// [todo] SPISEttings    
 }
 
 /**
@@ -611,10 +599,7 @@ void DataFlash::sectorErase(int8_t sector)
  **/
 void DataFlash::chipErase()
 {
-    uint8_t stat = status();
-    uint8_t deviceIndex = ((stat & 0x38) >> 3) - 1; /// \todo Store this at init
-
-    uint8_t sectorCount = 1 << m_infos.sectorSize[deviceIndex];
+    uint8_t sectorCount = 1 << m_sectorSize;
     
     sectorErase(AT45_SECTOR_0A);
     sectorErase(AT45_SECTOR_0B);
@@ -770,6 +755,164 @@ void DataFlash::hardReset()
         
         /* Reset recovery time = 1us */
         delayMicroseconds(1);
+    }
+}
+
+void DataFlash::enableSectorProtection()
+{
+    waitUntilReady();
+    if(m_writeProtectPin >= 0)
+        digitalWrite(m_writeProtectPin, HIGH);
+    reEnable();
+
+    SPI.transfer(DATAFLASH_ENABLE_SECTOR_PROTECTION_0);
+    SPI.transfer(DATAFLASH_ENABLE_SECTOR_PROTECTION_1);
+    SPI.transfer(DATAFLASH_ENABLE_SECTOR_PROTECTION_2);
+    SPI.transfer(DATAFLASH_ENABLE_SECTOR_PROTECTION_3);
+
+    disable();
+    if(m_writeProtectPin >= 0)
+        digitalWrite(m_writeProtectPin, LOW);
+}
+  
+void DataFlash::disableSectorProtection()
+{
+    waitUntilReady();
+    if(m_writeProtectPin >= 0)
+        digitalWrite(m_writeProtectPin, HIGH);
+    reEnable();
+
+    SPI.transfer(DATAFLASH_DISABLE_SECTOR_PROTECTION_0);
+    SPI.transfer(DATAFLASH_DISABLE_SECTOR_PROTECTION_1);
+    SPI.transfer(DATAFLASH_DISABLE_SECTOR_PROTECTION_2);
+    SPI.transfer(DATAFLASH_DISABLE_SECTOR_PROTECTION_3);
+
+    disable();
+}
+
+void DataFlash::eraseSectorProtectionRegister()
+{
+    waitUntilReady();
+    if(m_writeProtectPin >= 0)
+        digitalWrite(m_writeProtectPin, HIGH);
+    reEnable();
+
+    SPI.transfer(DATAFLASH_ERASE_SECTOR_PROTECTION_REGISTER_0);
+    SPI.transfer(DATAFLASH_ERASE_SECTOR_PROTECTION_REGISTER_1);
+    SPI.transfer(DATAFLASH_ERASE_SECTOR_PROTECTION_REGISTER_2);
+    SPI.transfer(DATAFLASH_ERASE_SECTOR_PROTECTION_REGISTER_3);
+
+    disable();
+
+    waitUntilReady();
+    if(m_writeProtectPin >= 0)
+        digitalWrite(m_writeProtectPin, LOW);
+}
+
+uint8_t DataFlash::programSectorProtectionRegister(const DataFlash::SectorProtectionStatus& status)
+{
+    uint8_t sectorCount = 1 << m_sectorSize;
+    eraseSectorProtectionRegister();
+
+    if(m_writeProtectPin >= 0)
+        digitalWrite(m_writeProtectPin, HIGH);
+    reEnable();
+
+    SPI.transfer(DATAFLASH_PROGRAM_SECTOR_PROTECTION_REGISTER_0);
+    SPI.transfer(DATAFLASH_PROGRAM_SECTOR_PROTECTION_REGISTER_1);
+    SPI.transfer(DATAFLASH_PROGRAM_SECTOR_PROTECTION_REGISTER_2);
+    SPI.transfer(DATAFLASH_PROGRAM_SECTOR_PROTECTION_REGISTER_3);
+
+    for(uint8_t i=0; i<sectorCount; i++)
+    {
+        SPI.transfer(status.data[i]);
+    }
+
+    disable();
+    waitUntilReady();
+    if(m_writeProtectPin >= 0)
+        digitalWrite(m_writeProtectPin, LOW);
+
+    return sectorCount;
+}
+
+uint8_t DataFlash::readSectorProtectionRegister(DataFlash::SectorProtectionStatus& status)
+{
+    uint8_t sectorCount = 1 << m_sectorSize;
+
+    waitUntilReady();
+    reEnable();
+
+    SPI.transfer(DATAFLASH_READ_SECTOR_PROTECTION_REGISTER);
+    SPI.transfer(0xff);
+    SPI.transfer(0xff);
+    SPI.transfer(0xff);
+
+    for(uint8_t i=0; i<sectorCount; i++)
+    {
+        status.data[i] = SPI.transfer(0);
+    }
+
+    disable();
+
+    return sectorCount;
+}
+
+DataFlash::SectorProtectionStatus::SectorProtectionStatus()
+{
+    clear();
+}
+DataFlash::SectorProtectionStatus::SectorProtectionStatus(const DataFlash::SectorProtectionStatus &status)
+{
+  for(uint8_t i=0; i<64; i++)
+  {
+    data[i] = status.data[i];
+  }
+}
+DataFlash::SectorProtectionStatus& DataFlash::SectorProtectionStatus::operator=(const DataFlash::SectorProtectionStatus& status)
+{
+  for(uint8_t i=0; i<64; i++)
+  {
+    data[i] = status.data[i];
+  }
+  return *this;
+}
+void DataFlash::SectorProtectionStatus::set(int8_t sectorId, bool status)
+{
+    if(sectorId == AT45_SECTOR_0A)
+    {
+        data[0] = (data[0] & 0x3f) | (status ? 0xc0 : 0x00);
+    }
+    else if(sectorId == AT45_SECTOR_0B)
+    {
+        data[0] = (data[0] & 0xcf) | (status ? 0x30 : 0x00);
+    }
+    else if((sectorId > 0) && (sectorId < 64))
+    {
+        data[sectorId] = status ? 0xff : 0x00;
+    }
+}
+bool DataFlash::SectorProtectionStatus::get(int8_t sectorId) const
+{
+    if(sectorId == AT45_SECTOR_0A)
+    {
+        return (data[0] & 0xc0) ? true : false;
+    }
+    else if(sectorId == AT45_SECTOR_0B)
+    {
+        return (data[0] & 0x30) ? true : false;
+    }
+    else if((sectorId > 0) && (sectorId < 64))
+    {
+        return data[sectorId] ? true : false;
+    }
+    return false;
+}
+void DataFlash::SectorProtectionStatus::clear()
+{
+    for(uint8_t i=0; i<64; i++)
+    {
+      data[i] = 0;
     }
 }
 
