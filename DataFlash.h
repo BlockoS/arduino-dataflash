@@ -462,25 +462,65 @@ class DataFlash
          **/
         void hardReset();
 
+        /**
+         * Enable sector protection.
+         * Once enabled, sector will be write protected according to the
+         * value of the sector protection register.
+         **/
         void enableSectorProtection();
+        /**
+         * Disable sector protection.
+         **/
         void disableSectorProtection();
+        /**
+         * Reset sector protection register.
+         * If sector protection is enabled, all sectors will be write
+         * protected.
+         **/
         void eraseSectorProtectionRegister();
-
+        /**
+         * Sector protection status.
+         * This is a local view of the sector protection status.
+         **/
         class SectorProtectionStatus
         {
-          friend class DataFlash;
-          public:
-            SectorProtectionStatus();
-            SectorProtectionStatus(const SectorProtectionStatus &status);
-            SectorProtectionStatus& operator=(const SectorProtectionStatus& status);
-            void set(int8_t sectorId, bool status);
-            bool get(int8_t sectorId) const;
-            void clear();
-          private:
-            uint8_t data[64];
+            friend class DataFlash;
+            public:
+                /** Constructor. **/
+                SectorProtectionStatus();
+                /** Copy constructor. **/
+                SectorProtectionStatus(const SectorProtectionStatus &status);
+                /** Copy operator. **/
+                SectorProtectionStatus& operator=(const SectorProtectionStatus& status);
+                /**
+                 * Set protection status for a given sector.
+                 * @param [in] sectorId Sector index (AT45_SECTOR_0A, AT45_SECTOR_0, 1 to N).
+                 * @param [in] status Protection status.
+                 **/
+                void set(int8_t sectorId, bool status);
+                /** 
+                 * Get protection status for a given sector.
+                 * @param [in] sectorId Sector index (AT45_SECTOR_0A, AT45_SECTOR_0, 1 to N).
+                 * @return @b true if the sector is write protected, @b false otherwise.
+                 **/
+                bool get(int8_t sectorId) const;
+                /** Reset sector protection status. **/
+                void clear();
+            private:
+                /** Sector protection bitfield. **/
+                uint8_t data[9];
         };
-        
+        /**
+         * Program sector protection register.
+         * @param [in] status Sector protection status.
+         * @return Sector count.
+         **/
         uint8_t programSectorProtectionRegister(const SectorProtectionStatus& status);
+        /**
+         * Read sector protection register.
+         * @param [out] status Sector protection status.
+         * @return Sector count.
+         **/
         uint8_t readSectorProtectionRegister(SectorProtectionStatus& status);
 
         /** Get chip Select (CS) pin **/

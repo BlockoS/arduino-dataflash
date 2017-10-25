@@ -758,6 +758,11 @@ void DataFlash::hardReset()
     }
 }
 
+/**
+ * Enable sector protection.
+ * Once enabled, sector will be write protected according to the
+ * value of the sector protection register.
+ **/
 void DataFlash::enableSectorProtection()
 {
     waitUntilReady();
@@ -774,7 +779,10 @@ void DataFlash::enableSectorProtection()
     if(m_writeProtectPin >= 0)
         digitalWrite(m_writeProtectPin, LOW);
 }
-  
+
+/**
+ * Disable sector protection.
+ **/
 void DataFlash::disableSectorProtection()
 {
     waitUntilReady();
@@ -789,7 +797,11 @@ void DataFlash::disableSectorProtection()
 
     disable();
 }
-
+/**
+ * Reset sector protection register.
+ * If sector protection is enabled, all sectors will be write
+ * protected.
+ **/
 void DataFlash::eraseSectorProtectionRegister()
 {
     waitUntilReady();
@@ -808,7 +820,11 @@ void DataFlash::eraseSectorProtectionRegister()
     if(m_writeProtectPin >= 0)
         digitalWrite(m_writeProtectPin, LOW);
 }
-
+/**
+ * Program sector protection register.
+ * @param [in] status Sector protection status.
+ * @return Sector count.
+ **/
 uint8_t DataFlash::programSectorProtectionRegister(const DataFlash::SectorProtectionStatus& status)
 {
     uint8_t sectorCount = 1 << m_sectorSize;
@@ -823,9 +839,16 @@ uint8_t DataFlash::programSectorProtectionRegister(const DataFlash::SectorProtec
     SPI.transfer(DATAFLASH_PROGRAM_SECTOR_PROTECTION_REGISTER_2);
     SPI.transfer(DATAFLASH_PROGRAM_SECTOR_PROTECTION_REGISTER_3);
 
-    for(uint8_t i=0; i<sectorCount; i++)
+    // Sector 0a & 0b
+    uint8_t data = 0x00;
+    data |= (status.data[8] & 0x01) ? 0xC0 : 0x00;
+    data |= (status.data[0] & 0x01) ? 0x30 : 0x00;
+    SPI.transfer(data);
+    
+    // Sector 1 to N
+    for(uint8_t i=1; i<sectorCount; i++)
     {
-        SPI.transfer(status.data[i]);
+        SPI.transfer((status.data[i >> 3] & (1 << (i & 7))) ? 0xff : 0x00);
     }
 
     disable();
@@ -835,10 +858,18 @@ uint8_t DataFlash::programSectorProtectionRegister(const DataFlash::SectorProtec
 
     return sectorCount;
 }
-
+/**
+ * Read sector protection register.
+ * @param [out] status Sector protection status.
+ * @return Sector count.
+ **/
 uint8_t DataFlash::readSectorProtectionRegister(DataFlash::SectorProtectionStatus& status)
 {
     uint8_t sectorCount = 1 << m_sectorSize;
+    for(uint8_t i=1; i<8; i++)
+    {
+        status.data[i] = 0x00;
+    }
 
     waitUntilReady();
     reEnable();
@@ -848,9 +879,22 @@ uint8_t DataFlash::readSectorProtectionRegister(DataFlash::SectorProtectionStatu
     SPI.transfer(0xff);
     SPI.transfer(0xff);
 
-    for(uint8_t i=0; i<sectorCount; i++)
+    uint8_t data = SPI.transfer(0);
+    if(data & 0xc0)
     {
-        status.data[i] = SPI.transfer(0);
+        status.data[8] = 0x01;
+    }
+    if(data & 0x30)
+    {
+        status.data[0] = 0x01;
+    }
+    for(uint8_t i=1; i<sectorCount; i++)
+    {
+        data = SPI.transfer(0);
+        if(data)
+        {
+            status.data[i >> 3] |= 1 << (i & 7);
+        }
     }
 
     disable();
@@ -858,59 +902,69 @@ uint8_t DataFlash::readSectorProtectionRegister(DataFlash::SectorProtectionStatu
     return sectorCount;
 }
 
+/** Constructor. **/
 DataFlash::SectorProtectionStatus::SectorProtectionStatus()
 {
     clear();
 }
+/** Copy constructor. **/
 DataFlash::SectorProtectionStatus::SectorProtectionStatus(const DataFlash::SectorProtectionStatus &status)
 {
-  for(uint8_t i=0; i<64; i++)
+  for(uint8_t i=0; i<9; i++)
   {
     data[i] = status.data[i];
   }
 }
+/** Copy operator. **/
 DataFlash::SectorProtectionStatus& DataFlash::SectorProtectionStatus::operator=(const DataFlash::SectorProtectionStatus& status)
 {
-  for(uint8_t i=0; i<64; i++)
+  for(uint8_t i=0; i<9; i++)
   {
     data[i] = status.data[i];
   }
   return *this;
 }
+/**
+ * Set protection status for a given sector.
+ * @param [in] sectorId Sector index (AT45_SECTOR_0A, AT45_SECTOR_0, 1 to N).
+ * @param [in] status Protection status.
+ **/
 void DataFlash::SectorProtectionStatus::set(int8_t sectorId, bool status)
 {
     if(sectorId == AT45_SECTOR_0A)
     {
-        data[0] = (data[0] & 0x3f) | (status ? 0xc0 : 0x00);
+        data[8] = (data[8] & 0x0e) | (status ? 0x01 : 0x00);
     }
-    else if(sectorId == AT45_SECTOR_0B)
+    else if((sectorId >= 0) && (sectorId < 64))
     {
-        data[0] = (data[0] & 0xcf) | (status ? 0x30 : 0x00);
-    }
-    else if((sectorId > 0) && (sectorId < 64))
-    {
-        data[sectorId] = status ? 0xff : 0x00;
+        uint8_t i = sectorId >> 3;
+        uint8_t mask = 1 << (sectorId & 7);
+        data[i] = (data[i] & ~mask) | (status ? (1 << mask) : 0x00);
     }
 }
+/** 
+ * Get protection status for a given sector.
+ * @param [in] sectorId Sector index (AT45_SECTOR_0A, AT45_SECTOR_0, 1 to N).
+ * @return @b true if the sector is write protected, @b false otherwise.
+ **/
 bool DataFlash::SectorProtectionStatus::get(int8_t sectorId) const
 {
     if(sectorId == AT45_SECTOR_0A)
     {
-        return (data[0] & 0xc0) ? true : false;
+        return (data[8] & 0x01) ? true : false;
     }
-    else if(sectorId == AT45_SECTOR_0B)
+    else if((sectorId >= 0) && (sectorId < 64))
     {
-        return (data[0] & 0x30) ? true : false;
-    }
-    else if((sectorId > 0) && (sectorId < 64))
-    {
-        return data[sectorId] ? true : false;
+        uint8_t i = sectorId >> 3;
+        uint8_t mask = 1 << (sectorId & 7);
+        reutnr (data[i] & mask) ? true : false;
     }
     return false;
 }
+/** Reset sector protection status. **/
 void DataFlash::SectorProtectionStatus::clear()
 {
-    for(uint8_t i=0; i<64; i++)
+    for(uint8_t i=0; i<9; i++)
     {
       data[i] = 0;
     }
