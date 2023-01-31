@@ -528,7 +528,7 @@ class DataFlash
         enum IOspeed m_speed;       /**< SPI transfer speed. **/
 #endif
 
-        SPISettings m_settings;     /**< [todo] **/
+        SPISettings m_settings;     /**< SPI port configuration **/
 };
 
 #include "DataFlashInlines.h"
