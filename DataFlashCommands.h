@@ -3,13 +3,13 @@
  * @brief AT45DBxxxD commands opcodes.
  *
  * @par Copyright: 
- * - Copyright (C) 2010-2011 by Vincent Cruz.
+ * - Copyright (C) 2010-2023 by Vincent Cruz.
  * - Copyright (C) 2011 by Volker Kuhlmann. @n
  * All rights reserved.
  *
  * @authors
  * - Vincent Cruz @n
- *   cruz.vincent@gmail.com
+ *   mooz@blockos.org
  * - Volker Kuhlmann @n
  *   http://volker.top.geek.nz/contact.html
  *
