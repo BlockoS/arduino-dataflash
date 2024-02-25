@@ -3,7 +3,7 @@
  * @brief AT45DBxxxD Atmel Dataflash library for Arduino.
  *
  * @par Copyright: 
- * - Copyright (C) 2010-2023 by Vincent Cruz.
+ * - Copyright (C) 2010-2024 by Vincent Cruz.
  * - Copyright (C) 2011 by Volker Kuhlmann. @n
  * All rights reserved.
  *
@@ -20,7 +20,8 @@
  * - Version 1.x, 2010-2011.
  * - Version 2.0, 30 Aug 2011.
  * - Version 2.2, 29 Dec 2011.
- *
+ * - Version 3.0, Mar 2024.
+ * 
  * @par Licence: GPLv3
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +36,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
-
 #ifndef DATAFLASH_H
 #define DATAFLASH_H
 
@@ -43,6 +43,10 @@
 #include <stdbool.h>
 
 #include "DataFlashSizes.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * @mainpage Atmel Dataflash library for Arduino.
@@ -230,11 +234,7 @@ typedef struct {
 #ifdef AT45_USE_SPI_SPEED_CONTROL
     DataFlashIOSpeed  speed;            /**< SPI transfer speed. **/
 #endif
-
-    /** Associated user data (platform specific spi handle, etc...) **/
-    uintptr_t user_data;
 } DataFlash;
-
 
 /**
  * Sleep for t microseconds.
@@ -281,7 +281,7 @@ extern bool dataflash_write_protect(DataFlash *df, bool state);
 /**
  * Initialize %Dataflash.
  */
-int dataflash_setup(DataFlash *df, uintptr_t user_data);
+int dataflash_setup(DataFlash *df);
 
 /**
  * Initialise SPI interface for use with the %Dataflash,
@@ -348,7 +348,6 @@ int dataflash_status(DataFlash *df);
  * @return [todo]
  **/
 int dataflash_page_read(DataFlash *df, uint16_t page, uint16_t offset);
-
 
 /**
  * Sequentially read a continuous stream of data at the currently set
@@ -499,40 +498,76 @@ int dataflash_resume_from_deep_power_down(DataFlash *df);
  **/
 void dataflash_hard_reset();
 
+/**
+ * Enable sector protection.
+ * Once enabled, sector will be write protected according to the
+ * value of the sector protection register.
+ **/
 int dataflash_enable_sector_protection(DataFlash *df);
+/**
+ * Disable sector protection.
+ **/
 int dataflash_disable_sector_protection(DataFlash *df);
+/**
+ * Reset sector protection register.
+ * If sector protection is enabled, all sectors will be write
+ * protected.
+ **/
 int dataflash_erase_sector_protection_register(DataFlash *df);
 
 #if 0
+        /**
+         * Sector protection status.
+         * This is a local view of the sector protection status.
+         **/
         class SectorProtectionStatus
         {
-          friend class DataFlash;
-          public:
-            SectorProtectionStatus();
-            SectorProtectionStatus(const SectorProtectionStatus &status);
-            SectorProtectionStatus& operator=(const SectorProtectionStatus& status);
-            void set(int8_t sectorId, bool status);
-            bool get(int8_t sectorId) const;
-            void clear();
-          private:
-            uint8_t data[64];
+            friend class DataFlash;
+            public:
+                /** Constructor. **/
+                SectorProtectionStatus();
+                /** Copy constructor. **/
+                SectorProtectionStatus(const SectorProtectionStatus &status);
+                /** Copy operator. **/
+                SectorProtectionStatus& operator=(const SectorProtectionStatus& status);
+                /**
+                 * Set protection status for a given sector.
+                 * @param [in] sectorId Sector index (AT45_SECTOR_0A, AT45_SECTOR_0, 1 to N).
+                 * @param [in] status Protection status.
+                 **/
+                void set(int8_t sectorId, bool status);
+                /** 
+                 * Get protection status for a given sector.
+                 * @param [in] sectorId Sector index (AT45_SECTOR_0A, AT45_SECTOR_0, 1 to N).
+                 * @return @b true if the sector is write protected, @b false otherwise.
+                 **/
+                bool get(int8_t sectorId) const;
+                /** Reset sector protection status. **/
+                void clear();
+            private:
+                /** Sector protection bitfield. **/
+                uint8_t data[9];
         };
-        
+        /**
+         * Program sector protection register.
+         * @param [in] status Sector protection status.
+         * @return Sector count.
+         **/
         uint8_t programSectorProtectionRegister(const SectorProtectionStatus& status);
+        /**
+         * Read sector protection register.
+         * @param [out] status Sector protection status.
+         * @return Sector count.
+         **/
         uint8_t readSectorProtectionRegister(SectorProtectionStatus& status);
-
-/**
- * Same as waitUntilReady
- * @todo This method will be removed.
- **/
-inline void DataFlash::endAndWait() {
-    /* Wait for the end of the previous operation. */
-    waitUntilReady();
-}
 #endif
 
 /**
  * @}
  **/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DATAFLASH_H */

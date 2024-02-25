@@ -37,6 +37,10 @@
 #ifndef DATAFLASH_SIZES_H
 #define DATAFLASH_SIZES_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @addtogroup AT45DBxxxD
  * @{
@@ -143,6 +147,10 @@ typedef enum {
 /** @} **/
 
 /** @} **/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // DATAFLASH_SIZES_H
 
